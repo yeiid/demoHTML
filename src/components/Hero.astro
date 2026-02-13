@@ -15,11 +15,29 @@
             complicaciones.
         </p>
         <div class="flex gap-4">
-            <a href="#features" class="btn btn-primary"
-                >Explorar Funcionalidades</a
-            >
-            <a href="#" class="btn glass">Solicitar Reserva</a>
+            <a href="#download" class="btn btn-primary btn-download">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Prueba Gratis 7 Días
+            </a>
+            <a href="#features" class="btn glass">Ver Demo Interactiva</a>
         </div>
+        <p class="trial-note">
+            Sin tarjeta de crédito • Instalación instantánea • Soporte incluido
+        </p>
     </div>
 </section>
 
@@ -58,9 +76,53 @@
         gap: 1rem;
     }
 
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-download:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.4);
+    }
+
+    .btn-download svg {
+        animation: bounce 2s infinite;
+    }
+
+    .trial-note {
+        margin-top: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--muted);
+        opacity: 0.8;
+    }
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
     @media (max-width: 768px) {
         .text-6xl {
             font-size: 2.5rem;
+        }
+
+        .flex {
+            flex-direction: column;
+        }
+
+        .btn-download {
+            width: 100%;
+            justify-content: center;
         }
     }
 </style>

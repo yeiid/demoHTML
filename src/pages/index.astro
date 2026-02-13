@@ -7,6 +7,7 @@ import SalesDemo from "../components/SalesDemo.astro";
 import ProductDemo from "../components/ProductDemo.astro";
 import ConfigDemo from "../components/ConfigDemo.astro";
 import CloudSync from "../components/CloudSync.astro";
+import DownloadSection from "../components/DownloadSection.astro";
 import "../styles/global.css";
 ---
 
@@ -38,21 +39,51 @@ import "../styles/global.css";
 
 		<CloudSync />
 
+		<div class="divider"></div>
+
+		<DownloadSection />
+
+		<div class="divider"></div>
+
 		<section id="cta" class="container text-center pt-20">
 			<div
 				class="glass p-16 bg-gradient-to-b from-primary/5 to-transparent"
 			>
 				<h2 class="text-5xl font-bold mb-6">
-					Lleva tu gimnasio al futuro
+					¿Listo para transformar tu gimnasio?
 				</h2>
 				<p class="text-xl text-muted mb-10 max-w-2xl mx-auto">
-					No es solo software, es el motor de crecimiento de tu
-					negocio.
+					Únete a cientos de gimnasios que ya confían en GymTrack.
+					Comienza tu prueba gratuita hoy mismo.
 				</p>
-				<a
-					href="mailto:hola@gymtrack.com"
-					class="btn btn-primary px-12 py-4 text-xl">Comenzar Ahora</a
-				>
+				<div class="cta-buttons">
+					<a
+						href="#download"
+						class="btn btn-primary px-12 py-4 text-xl"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+							></path>
+							<polyline points="7 10 12 15 17 10"></polyline>
+							<line x1="12" y1="15" x2="12" y2="3"></line>
+						</svg>
+						Descargar Prueba Gratis
+					</a>
+					<a
+						href="mailto:hola@gymtrack.com"
+						class="btn glass px-12 py-4 text-xl">Contactar Ventas</a
+					>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -109,5 +140,26 @@ import "../styles/global.css";
 	.py-4 {
 		padding-top: 1rem;
 		padding-bottom: 1rem;
+	}
+	.cta-buttons {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.cta-buttons .btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	@media (max-width: 768px) {
+		.cta-buttons {
+			flex-direction: column;
+		}
+		.cta-buttons .btn {
+			width: 100%;
+			justify-content: center;
+		}
 	}
 </style>
