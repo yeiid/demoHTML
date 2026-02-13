@@ -1,0 +1,113 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import UserDemo from "../components/UserDemo.astro";
+import FinanceDemo from "../components/FinanceDemo.astro";
+import SalesDemo from "../components/SalesDemo.astro";
+import ProductDemo from "../components/ProductDemo.astro";
+import ConfigDemo from "../components/ConfigDemo.astro";
+import CloudSync from "../components/CloudSync.astro";
+import "../styles/global.css";
+---
+
+<Layout title="GymTrack | Demo Interactiva de Gestión de Gimnasios">
+	<main>
+		<Hero />
+
+		<div class="divider"></div>
+
+		<UserDemo />
+
+		<div class="divider"></div>
+
+		<FinanceDemo />
+
+		<div class="divider"></div>
+
+		<SalesDemo />
+
+		<div class="divider"></div>
+
+		<ProductDemo />
+
+		<div class="divider"></div>
+
+		<ConfigDemo />
+
+		<div class="divider"></div>
+
+		<CloudSync />
+
+		<section id="cta" class="container text-center pt-20">
+			<div
+				class="glass p-16 bg-gradient-to-b from-primary/5 to-transparent"
+			>
+				<h2 class="text-5xl font-bold mb-6">
+					Lleva tu gimnasio al futuro
+				</h2>
+				<p class="text-xl text-muted mb-10 max-w-2xl mx-auto">
+					No es solo software, es el motor de crecimiento de tu
+					negocio.
+				</p>
+				<a
+					href="mailto:hola@gymtrack.com"
+					class="btn btn-primary px-12 py-4 text-xl">Comenzar Ahora</a
+				>
+			</div>
+		</section>
+	</main>
+
+	<footer class="container py-12 text-center text-muted border-t mt-20">
+		<p>
+			&copy; 2026 GymTrack SAAS. La plataforma definitiva para gimnasios
+			modernos.
+		</p>
+	</footer>
+</Layout>
+
+<style>
+	.divider {
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			var(--border),
+			transparent
+		);
+		margin: 8rem 0;
+	}
+	.text-5xl {
+		font-size: 3.5rem;
+	}
+	.text-center {
+		text-align: center;
+	}
+	.p-16 {
+		padding: 4rem;
+	}
+	.pt-20 {
+		padding-top: 5rem;
+	}
+	.mt-20 {
+		margin-top: 5rem;
+	}
+	.py-12 {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+	.border-t {
+		border-top: 1px solid var(--border);
+	}
+	.mx-auto {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.px-12 {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+	.py-4 {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+</style>

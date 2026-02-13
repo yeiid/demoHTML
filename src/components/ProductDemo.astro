@@ -1,0 +1,129 @@
+---
+const initialStock = [
+    { name: "Mancuerna 10kg", category: "Equipamiento", stock: 15, low: false },
+    { name: "Proteína Whey", category: "Suplementos", stock: 3, low: true },
+    { name: "Toalla Gym", category: "Accesorios", stock: 25, low: false },
+    { name: "Creatina", category: "Suplementos", stock: 2, low: true },
+];
+---
+
+<section id="product-demo" class="container">
+    <div class="glass p-12 bg-gradient-to-tr from-accent/5 to-transparent">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="flex-1 order-2 lg:order-1">
+                <div class="glass overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-white/5">
+                            <tr>
+                                <th class="p-4">Producto</th>
+                                <th class="p-4">Categoría</th>
+                                <th class="p-4">Stock</th>
+                                <th class="p-4">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                initialStock.map((item) => (
+                                    <tr class="border-t border-white/5">
+                                        <td class="p-4 font-medium">
+                                            {item.name}
+                                        </td>
+                                        <td class="p-4 text-muted">
+                                            {item.category}
+                                        </td>
+                                        <td class="p-4">{item.stock}</td>
+                                        <td class="p-4">
+                                            {item.low ? (
+                                                <span class="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded-full border border-red-500/30">
+                                                    Bajo Stock
+                                                </span>
+                                            ) : (
+                                                <span class="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded-full border border-secondary/30">
+                                                    OK
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="flex-1 order-1 lg:order-2">
+                <h2 class="text-4xl font-bold mb-6">
+                    Inventario <span class="gradient-text">Automatizado</span>
+                </h2>
+                <p class="text-lg text-muted mb-8">
+                    Olvídate de las hojas de cálculo. Gestiona tu stock con
+                    alertas automáticas y reportes de reposición inteligentes.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
+                        <span class="p-2 bg-primary/20 rounded-lg">📦</span>
+                        <span>Alertas automáticas de bajo inventario</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="p-2 bg-primary/20 rounded-lg">🏷️</span>
+                        <span>Categorización por tipo de producto</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="p-2 bg-primary/20 rounded-lg">📊</span>
+                        <span>Historial de movimientos y merma</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .w-full {
+        width: 100%;
+    }
+    .text-left {
+        text-align: left;
+    }
+    .font-medium {
+        font-weight: 500;
+    }
+    .bg-red-500\/20 {
+        background-color: rgba(239, 68, 68, 0.2);
+    }
+    .text-red-400 {
+        color: #f87171;
+    }
+    .border-red-500\/30 {
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+    .bg-secondary\/20 {
+        background-color: rgba(0, 245, 212, 0.2);
+    }
+    .px-2 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .py-1 {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+    .rounded-full {
+        border-radius: 9999px;
+    }
+    .border {
+        border-width: 1px;
+    }
+    .lg\:order-1 {
+        order: 1;
+    }
+    .lg\:order-2 {
+        order: 2;
+    }
+    .order-1 {
+        order: 1;
+    }
+    .order-2 {
+        order: 2;
+    }
+</style>

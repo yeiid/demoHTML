@@ -1,0 +1,114 @@
+---
+
+---
+
+<section id="config-demo" class="container">
+    <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">
+            Control <span class="gradient-text">Total</span>
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Configura tu negocio a tu medida. Permisos, impuestos y
+            sincronización cloud en un solo panel.
+        </p>
+    </div>
+
+    <div
+        class="glass p-8 flex flex-col md:flex-row gap-8 items-center border-secondary/20"
+    >
+        <div class="flex-1 space-y-4">
+            <div
+                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:border-secondary transition-colors"
+            >
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">⚙️</span>
+                    <span>Configuración de IVA (16%)</span>
+                </div>
+                <div class="toggle active"></div>
+            </div>
+            <div
+                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:border-secondary transition-colors"
+            >
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🔏</span>
+                    <span>Gestión de Administradores</span>
+                </div>
+                <button class="btn glass py-1 px-4 text-xs">Gestionar</button>
+            </div>
+            <div
+                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-secondary/50 shadow-[0_0_15px_rgba(0,245,212,0.1)]"
+            >
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">⚡</span>
+                    <span class="font-bold">Modo Sincronización Automática</span
+                    >
+                </div>
+                <div class="toggle active animate-pulse"></div>
+            </div>
+        </div>
+
+        <div class="flex-1 text-center md:text-left">
+            <h3 class="text-2xl font-bold mb-4">Seguridad Profesional</h3>
+            <p class="text-muted mb-6">
+                Administra roles de usuario y permisos granulares. Mantén el
+                historial de logs de cada acción realizada en el sistema para
+                máxima transparencia.
+            </p>
+            <div class="flex gap-4 justify-center md:justify-start">
+                <div class="glass p-3 flex flex-col items-center">
+                    <span class="text-2xl">🛡️</span>
+                    <small>Logs</small>
+                </div>
+                <div class="glass p-3 flex flex-col items-center">
+                    <span class="text-2xl">🔑</span>
+                    <small>Roles</small>
+                </div>
+                <div class="glass p-3 flex flex-col items-center">
+                    <span class="text-2xl">🔄</span>
+                    <small>Backups</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .toggle {
+        width: 40px;
+        height: 20px;
+        background: #333;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+    }
+    .toggle::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        top: 2px;
+        left: 2px;
+        transition: transform 0.3s;
+    }
+    .toggle.active {
+        background: var(--secondary);
+    }
+    .toggle.active::after {
+        transform: translateX(20px);
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+    }
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+</style>

@@ -1,0 +1,172 @@
+---
+
+---
+
+<section id="finance-demo" class="container">
+    <div class="glass p-12 relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <div class="flex-1">
+                <h2 class="text-4xl font-bold mb-6">
+                    Finanzas <span class="gradient-text">Bajo Control</span>
+                </h2>
+                <p class="text-lg text-muted mb-8">
+                    Toma decisiones basadas en datos reales. Monitorea el flujo
+                    de caja, el ROI y las tendencias de membresía desde un solo
+                    lugar.
+                </p>
+
+                <div class="space-y-6">
+                    <div
+                        class="indicator flex items-center justify-between p-4 glass rounded-xl"
+                    >
+                        <span>Ingresos Mensuales</span>
+                        <span class="text-secondary font-bold text-2xl"
+                            >+$4,250</span
+                        >
+                    </div>
+                    <div
+                        class="indicator flex items-center justify-between p-4 glass rounded-xl"
+                    >
+                        <span>Gastos Operativos</span>
+                        <span class="text-accent font-bold text-2xl"
+                            >-$1,100</span
+                        >
+                    </div>
+                    <div
+                        class="indicator flex items-center justify-between p-4 glass border-primary/30 rounded-xl"
+                    >
+                        <span>Neto Estimado</span>
+                        <span class="text-primary font-bold text-2xl"
+                            >$3,150</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="flex-1 bg-black/40 rounded-3xl p-8 border border-white/5 relative"
+            >
+                <div class="flex justify-between items-center mb-12">
+                    <h4 class="font-semibold">Crecimiento Anual</h4>
+                    <div class="flex gap-2">
+                        <span class="dot bg-secondary"></span>
+                        <span class="dot bg-primary"></span>
+                    </div>
+                </div>
+
+                <!-- CSS Only Line Chart -->
+                <div class="chart-container">
+                    <svg viewBox="0 0 400 200" class="chart-svg">
+                        <defs>
+                            <linearGradient
+                                id="gradient"
+                                x1="0%"
+                                y1="0%"
+                                x2="0%"
+                                y2="100%"
+                            >
+                                <stop
+                                    offset="0%"
+                                    style="stop-color:var(--primary);stop-opacity:0.3"
+                                ></stop>
+                                <stop
+                                    offset="100%"
+                                    style="stop-color:var(--primary);stop-opacity:0"
+                                ></stop>
+                            </linearGradient>
+                        </defs>
+                        <path
+                            class="chart-area"
+                            d="M0,200 L0,150 L80,130 L160,160 L240,80 L320,100 L400,40 L400,200 Z"
+                            fill="url(#gradient)"></path>
+                        <path
+                            class="chart-line"
+                            d="M0,150 L80,130 L160,160 L240,80 L320,100 L400,40"
+                            fill="none"
+                            stroke="var(--primary)"
+                            stroke-width="3"></path>
+                        <circle cx="0" cy="150" r="4" fill="var(--primary)"
+                        ></circle>
+                        <circle cx="80" cy="130" r="4" fill="var(--primary)"
+                        ></circle>
+                        <circle cx="160" cy="160" r="4" fill="var(--primary)"
+                        ></circle>
+                        <circle cx="240" cy="80" r="4" fill="var(--primary)"
+                        ></circle>
+                        <circle cx="320" cy="100" r="4" fill="var(--primary)"
+                        ></circle>
+                        <circle cx="400" cy="40" r="4" fill="var(--primary)"
+                        ></circle>
+                    </svg>
+                </div>
+
+                <div
+                    class="grid grid-cols-6 gap-2 mt-4 text-[10px] text-muted text-center"
+                >
+                    <span>Ene</span><span>Mar</span><span>May</span><span
+                        >Jul</span
+                    ><span>Sep</span><span>Nov</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .flex {
+        display: flex;
+    }
+    .flex-col {
+        flex-direction: column;
+    }
+    .gap-12 {
+        gap: 3rem;
+    }
+    .gap-2 {
+        gap: 0.5rem;
+    }
+    .flex-1 {
+        flex: 1;
+    }
+    .space-y-6 > * + * {
+        margin-top: 1.5rem;
+    }
+    .rounded-xl {
+        border-radius: 0.75rem;
+    }
+    .rounded-3xl {
+        border-radius: 1.5rem;
+    }
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .chart-container {
+        height: 200px;
+        position: relative;
+    }
+    .chart-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+    .chart-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw 3s ease-out forwards;
+    }
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .lg\:flex-row {
+            flex-direction: row;
+        }
+    }
+</style>

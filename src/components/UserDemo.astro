@@ -1,0 +1,194 @@
+---
+
+---
+
+<section id="user-demo" class="container">
+    <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">
+            Gestión de <span class="gradient-text">Usuarios</span>
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Una experiencia de registro fluida que convierte visitantes en
+            miembros activos al instante.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- Mini Form -->
+        <div class="glass p-8 space-y-6">
+            <h3 class="text-2xl font-semibold mb-4">Registro Rápido</h3>
+            <div class="space-y-4">
+                <div class="field">
+                    <label>Nombre Completo</label>
+                    <input
+                        type="text"
+                        class="input"
+                        placeholder="Ej. Juan Pérez"
+                        id="demo-name"
+                    />
+                </div>
+                <div class="field-group">
+                    <div class="field">
+                        <label>Plan</label>
+                        <select class="input" id="demo-plan">
+                            <option>Plan Mensual - $30</option>
+                            <option>Plan Trimestral - $80</option>
+                            <option>Plan Anual - $300</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Método de Pago</label>
+                        <select class="input">
+                            <option>Efectivo</option>
+                            <option>Tarjeta / Transferencia</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary w-full" id="btn-register-demo"
+                    >Registrar Miembro</button
+                >
+            </div>
+        </div>
+
+        <!-- Mini Profile / Feedback -->
+        <div
+            class="glass p-8 bg-gradient-to-br from-primary/10 to-transparent relative overflow-hidden h-full"
+        >
+            <div class="absolute top-0 right-0 p-4">
+                <span class="badge">Activo</span>
+            </div>
+
+            <div class="flex items-center gap-6 mb-8">
+                <div class="avatar">JP</div>
+                <div>
+                    <h4 class="text-2xl font-bold" id="card-name">
+                        Miembro Nuevo
+                    </h4>
+                    <p class="text-muted" id="card-plan">
+                        Plan no seleccionado
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="stat-card glass">
+                    <small class="text-muted">Asistencia</small>
+                    <div class="text-xl font-bold">100%</div>
+                </div>
+                <div class="stat-card glass">
+                    <small class="text-muted">Próximo Pago</small>
+                    <div class="text-xl font-bold">10 Mar</div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h5 class="font-semibold mb-4">Objetivos Actuales</h5>
+                <div class="progress-item">
+                    <div class="flex justify-between mb-2">
+                        <span>Pérdida de Peso</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .input {
+        width: 100%;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    .input:focus {
+        border-color: var(--primary);
+    }
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    .field-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .w-full {
+        width: 100%;
+    }
+    .space-y-6 > * + * {
+        margin-top: 1.5rem;
+    }
+    .space-y-4 > * + * {
+        margin-top: 1rem;
+    }
+    .avatar {
+        width: 64px;
+        height: 64px;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .badge {
+        background: var(--secondary);
+        color: var(--bg);
+        padding: 0.2rem 0.8rem;
+        border-radius: 2rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+    .stat-card {
+        padding: 1rem;
+        text-align: center;
+    }
+    .progress-bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        border-radius: 4px;
+    }
+    .mb-16 {
+        margin-bottom: 4rem;
+    }
+</style>
+
+<script>
+    // Simple interactivity for the demo
+    const nameInput = document.getElementById("demo-name") as HTMLInputElement;
+    const planSelect = document.getElementById(
+        "demo-plan",
+    ) as HTMLSelectElement;
+    const btn = document.getElementById("btn-register-demo");
+    const cardName = document.getElementById("card-name");
+    const cardPlan = document.getElementById("card-plan");
+
+    btn?.addEventListener("click", () => {
+        if (cardName) cardName.innerText = nameInput.value || "Miembro Nuevo";
+        if (cardPlan) cardPlan.innerText = planSelect.value;
+
+        // Minimalistic feedback
+        btn.innerText = "¡Registrado!";
+        setTimeout(() => {
+            btn.innerText = "Registrar Miembro";
+        }, 2000);
+    });
+</script>

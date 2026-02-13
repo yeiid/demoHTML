@@ -1,0 +1,173 @@
+---
+const products = [
+    { id: 1, name: "Proteína Whey", price: 45.0, icon: "🥤" },
+    { id: 2, name: "Creatina Monohidratada", price: 30.0, icon: "⚡" },
+    { id: 3, name: "Cinturón Gym", price: 25.0, icon: "🏋️‍♂️" },
+    { id: 4, name: "Agua Mineral", price: 1.5, icon: "💧" },
+];
+---
+
+<section id="sales-demo" class="container">
+    <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">
+            Punto de <span class="gradient-text">Venta</span>
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Ventas rápidas, inventario sincronizado y clientes satisfechos en
+            segundos.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Product Grid -->
+        <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {
+                products.map((product) => (
+                    <button
+                        class="glass p-4 hover:border-primary transition-all flex flex-col items-center gap-2 product-btn"
+                        data-id={product.id}
+                        data-name={product.name}
+                        data-price={product.price}
+                    >
+                        <span class="text-3xl">{product.icon}</span>
+                        <span class="text-sm font-semibold text-center">
+                            {product.name}
+                        </span>
+                        <span class="text-secondary font-bold">
+                            ${product.price.toFixed(2)}
+                        </span>
+                    </button>
+                ))
+            }
+        </div>
+
+        <!-- Mini Receipt -->
+        <div class="glass p-6 flex flex-col h-full border-primary/20">
+            <h3 class="font-bold mb-6 flex items-center justify-between">
+                Carrito
+                <span class="text-xs text-muted" id="cart-count">0 items</span>
+            </h3>
+
+            <div
+                class="flex-grow space-y-4 mb-6 max-h-[300px] overflow-y-auto"
+                id="cart-items"
+            >
+                <p class="text-muted text-center text-sm italic py-8">
+                    El carrito está vacío
+                </p>
+            </div>
+
+            <div class="border-t border-white/10 pt-6 space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span>IVA (16%)</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div
+                    class="flex justify-between text-xl font-bold pt-2 border-t border-white/5 mt-2"
+                >
+                    <span>Total</span>
+                    <span class="text-primary" id="total">$0.00</span>
+                </div>
+                <button class="btn btn-primary w-full mt-4" id="btn-checkout"
+                    >Finalizar Venta</button
+                >
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .lg\:col-span-2 {
+        grid-column: span 2 / span 2;
+    }
+    .grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .flex-grow {
+        flex-grow: 1;
+    }
+    .overflow-y-auto {
+        overflow-y: auto;
+    }
+</style>
+
+<script>
+    let cart: { id: number; name: string; price: number }[] = [];
+    const itemsContainer = document.getElementById("cart-items");
+    const cartCount = document.getElementById("cart-count");
+    const subtotalEl = document.getElementById("subtotal");
+    const taxEl = document.getElementById("tax");
+    const totalEl = document.getElementById("total");
+    const checkoutBtn = document.getElementById("btn-checkout");
+
+    function updateCart() {
+        if (!itemsContainer || !cartCount || !subtotalEl || !taxEl || !totalEl)
+            return;
+
+        if (cart.length === 0) {
+            itemsContainer.innerHTML =
+                '<p class="text-muted text-center text-sm italic py-8">El carrito está vacío</p>';
+        } else {
+            itemsContainer.innerHTML = cart
+                .map(
+                    (item, idx) => `
+        <div class="flex justify-between items-center text-sm animate-fade-in">
+          <span>${item.name}</span>
+          <div class="flex items-center gap-3">
+            <b>$${item.price.toFixed(2)}</b>
+            <button class="text-accent hover:text-red-400 remove-btn" data-idx="${idx}">✕</button>
+          </div>
+        </div>
+      `,
+                )
+                .join("");
+        }
+
+        const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
+        const tax = subtotal * 0.16;
+        const total = subtotal + tax;
+
+        cartCount.innerText = `${cart.length} items`;
+        subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+        taxEl.innerText = `$${tax.toFixed(2)}`;
+        totalEl.innerText = `$${total.toFixed(2)}`;
+
+        // Add remove listeners
+        document.querySelectorAll(".remove-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const idx = parseInt(
+                    (e.target as HTMLElement).getAttribute("data-idx") || "0",
+                );
+                cart.splice(idx, 1);
+                updateCart();
+            });
+        });
+    }
+
+    document.querySelectorAll(".product-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const id = parseInt(btn.getAttribute("data-id") || "0");
+            const name = btn.getAttribute("data-name") || "";
+            const price = parseFloat(btn.getAttribute("data-price") || "0");
+            cart.push({ id, name, price });
+            updateCart();
+        });
+    });
+
+    checkoutBtn?.addEventListener("click", () => {
+        if (cart.length === 0) return;
+        checkoutBtn.innerText = "✓ Venta Registrada";
+        cart = [];
+        updateCart();
+        setTimeout(() => {
+            checkoutBtn.innerText = "Finalizar Venta";
+        }, 2000);
+    });
+</script>
