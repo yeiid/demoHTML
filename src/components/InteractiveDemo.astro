@@ -1,0 +1,172 @@
+---
+import UserDemo from "./UserDemo.astro";
+import FinanceDemo from "./FinanceDemo.astro";
+import SalesDemo from "./SalesDemo.astro";
+import ProductDemo from "./ProductDemo.astro";
+
+const tabs = [
+    { id: "users", label: "Usuarios", icon: "👤" },
+    { id: "finance", label: "Finanzas", icon: "💰" },
+    { id: "sales", label: "Ventas/POS", icon: "🛒" },
+    { id: "inventory", label: "Inventario", icon: "📦" },
+];
+---
+
+<section id="demo" class="container py-12">
+    <div class="text-center mb-10">
+        <h2 class="text-4xl font-bold mb-4">
+            Explora la <span class="gradient-text">Experiencia GymTrack</span>
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Gestiona cada aspecto de tu gimnasio desde una interfaz única e
+            intuitiva.
+        </p>
+    </div>
+
+    <div class="demo-wrapper glass">
+        <div class="demo-sidebar">
+            {
+                tabs.map((tab) => (
+                    <button class="tab-btn" data-tab={tab.id}>
+                        <span class="tab-icon">{tab.icon}</span>
+                        <span class="tab-label">{tab.label}</span>
+                    </button>
+                ))
+            }
+        </div>
+
+        <div class="demo-content">
+            <div id="users" class="tab-content active">
+                <UserDemo />
+            </div>
+            <div id="finance" class="tab-content">
+                <FinanceDemo />
+            </div>
+            <div id="sales" class="tab-content">
+                <SalesDemo />
+            </div>
+            <div id="inventory" class="tab-content">
+                <ProductDemo />
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const buttons = document.querySelectorAll(".tab-btn");
+    const contents = document.querySelectorAll(".tab-content");
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const tabId = btn.getAttribute("data-tab");
+
+            // Update buttons
+            buttons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            // Update content with fade
+            contents.forEach((content) => {
+                content.classList.remove("active");
+                if (content.id === tabId) {
+                    content.classList.add("active");
+                }
+            });
+        });
+    });
+
+    // Set first tab as active by default
+    buttons[0].classList.add("active");
+</script>
+
+<style>
+    .demo-wrapper {
+        display: flex;
+        min-height: 600px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+    }
+
+    .demo-sidebar {
+        width: 200px;
+        background: rgba(255, 255, 255, 0.02);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        padding: 1rem;
+        text-align: left;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-weight: 600;
+    }
+
+    .tab-btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+    }
+
+    .tab-btn.active {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
+    }
+
+    .demo-content {
+        flex: 1;
+        padding: 2rem;
+        position: relative;
+        overflow-y: auto;
+        max-height: 800px;
+    }
+
+    .tab-content {
+        display: none;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s ease;
+    }
+
+    .tab-content.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Adjust demo components inside the tab */
+    :global(.tab-content section) {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    :global(.tab-content .text-center.mb-16) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        .demo-wrapper {
+            flex-direction: column;
+        }
+        .demo-sidebar {
+            width: 100%;
+            flex-direction: row;
+            overflow-x: auto;
+            border-right: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-label {
+            display: none;
+        }
+    }
+</style>

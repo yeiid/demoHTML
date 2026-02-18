@@ -1,44 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import TechnicalSpecs from "../components/TechnicalSpecs.astro";
-import UserDemo from "../components/UserDemo.astro";
-import FinanceDemo from "../components/FinanceDemo.astro";
-import SalesDemo from "../components/SalesDemo.astro";
-import ProductDemo from "../components/ProductDemo.astro";
-import ConfigDemo from "../components/ConfigDemo.astro";
+import KeyBenefits from "../components/KeyBenefits.astro";
+import InteractiveDemo from "../components/InteractiveDemo.astro";
+import Features from "../components/Features.astro";
 import CloudSync from "../components/CloudSync.astro";
 import DownloadSection from "../components/DownloadSection.astro";
 import "../styles/global.css";
 ---
 
-<Layout title="GymTrack | Demo Interactiva de Gestión de Gimnasios">
+<Layout title="GymTrack | Gestión de Gimnasios Inteligente">
 	<main>
 		<Hero />
 
 		<div class="divider"></div>
 
-		<TechnicalSpecs />
+		<Features />
 
 		<div class="divider"></div>
 
-		<UserDemo />
+		<KeyBenefits />
 
 		<div class="divider"></div>
 
-		<FinanceDemo />
-
-		<div class="divider"></div>
-
-		<SalesDemo />
-
-		<div class="divider"></div>
-
-		<ProductDemo />
-
-		<div class="divider"></div>
-
-		<!-- <ConfigDemo /> -->
+		<InteractiveDemo />
 
 		<div class="divider"></div>
 
@@ -47,8 +32,6 @@ import "../styles/global.css";
 		<div class="divider"></div>
 
 		<DownloadSection />
-
-		<div class="divider"></div>
 
 		<section id="cta" class="container text-center pt-20">
 			<div
@@ -110,7 +93,7 @@ import "../styles/global.css";
 			var(--border),
 			transparent
 		);
-		margin: 8rem 0;
+		margin: 3rem 0;
 	}
 	.text-5xl {
 		font-size: 3.5rem;

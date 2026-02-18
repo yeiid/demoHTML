@@ -1,0 +1,101 @@
+---
+// Key Benefits Component - Focus on ROI and Value
+const benefits = [
+    {
+        icon: "🌳",
+        title: "Ahorro de Papel",
+        stat: "~95%",
+        description: "Elimina registros manuales y ahorra hasta $400 USD/año.",
+    },
+    {
+        icon: "⏱️",
+        title: "Ahorro de Tiempo",
+        stat: "20 hrs/sem",
+        description: "Automatiza cálculos y reportes. Recupera tiempo valioso.",
+    },
+    {
+        icon: "📊",
+        title: "Precisión Total",
+        stat: "99.9%",
+        description: "Elimina errores humanos en membresías y pagos.",
+    },
+    {
+        icon: "💰",
+        title: "Retorno de Inversión",
+        stat: "< 6 meses",
+        description:
+            "Recupera tu inversión rápidamente con eficiencia operativa.",
+    },
+];
+---
+
+<section id="benefits" class="container">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">
+            ¿Por qué elegir <span class="gradient-text">GymTrack</span>?
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Diseñado para maximizar la rentabilidad de tu gimnasio con
+            tecnología que trabaja para ti.
+        </p>
+    </div>
+
+    <div class="benefits-grid">
+        {
+            benefits.map((benefit) => (
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">{benefit.icon}</div>
+                    <div class="benefit-stat">{benefit.stat}</div>
+                    <h3 class="benefit-title">{benefit.title}</h3>
+                    <p class="benefit-desc">{benefit.description}</p>
+                </div>
+            ))
+        }
+    </div>
+</section>
+
+<style>
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .benefit-card {
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+
+    .benefit-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .benefit-stat {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text; /* Fixed compatibility lint warning by adding standard prop */
+        margin-bottom: 0.5rem;
+    }
+
+    .benefit-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .benefit-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+</style>
