@@ -1,79 +1,125 @@
 ---
-const initialStock = [
-    { name: "Mancuerna 10kg", category: "Equipamiento", stock: 15, low: false },
-    { name: "Proteína Whey", category: "Suplementos", stock: 3, low: true },
-    { name: "Toalla Gym", category: "Accesorios", stock: 25, low: false },
-    { name: "Creatina", category: "Suplementos", stock: 2, low: true },
+// Simplified Product/Inventory Demo - Visual showcase
+const products = [
+    {
+        name: "Mancuerna 10kg",
+        category: "Equipamiento",
+        stock: 15,
+        status: "ok",
+    },
+    { name: "Proteína Whey", category: "Suplementos", stock: 3, status: "low" },
+    { name: "Toalla Gym", category: "Accesorios", stock: 25, status: "ok" },
+    { name: "Creatina", category: "Suplementos", stock: 2, status: "low" },
+    {
+        name: "Banda Elástica",
+        category: "Equipamiento",
+        stock: 18,
+        status: "ok",
+    },
+    { name: "Shaker", category: "Accesorios", stock: 12, status: "ok" },
 ];
 ---
 
 <section id="product-demo" class="container">
-    <div class="glass p-12 bg-gradient-to-tr from-accent/5 to-transparent">
-        <div class="flex flex-col lg:flex-row items-center gap-12">
-            <div class="flex-1 order-2 lg:order-1">
-                <div class="glass overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-white/5">
-                            <tr>
-                                <th class="p-4">Producto</th>
-                                <th class="p-4">Categoría</th>
-                                <th class="p-4">Stock</th>
-                                <th class="p-4">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                initialStock.map((item) => (
-                                    <tr class="border-t border-white/5">
-                                        <td class="p-4 font-medium">
-                                            {item.name}
-                                        </td>
-                                        <td class="p-4 text-muted">
-                                            {item.category}
-                                        </td>
-                                        <td class="p-4">{item.stock}</td>
-                                        <td class="p-4">
-                                            {item.low ? (
-                                                <span class="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded-full border border-red-500/30">
-                                                    Bajo Stock
-                                                </span>
-                                            ) : (
-                                                <span class="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded-full border border-secondary/30">
-                                                    OK
-                                                </span>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold mb-4">
+            Control de <span class="gradient-text">Inventario</span>
+        </h2>
+        <p class="text-muted max-w-2xl mx-auto">
+            Gestiona productos, controla stock y recibe alertas automáticas de
+            reposición.
+        </p>
+    </div>
 
-            <div class="flex-1 order-1 lg:order-2">
-                <h2 class="text-4xl font-bold mb-6">
-                    Inventario <span class="gradient-text">Automatizado</span>
-                </h2>
-                <p class="text-lg text-muted mb-8">
-                    Olvídate de las hojas de cálculo. Gestiona tu stock con
-                    alertas automáticas y reportes de reposición inteligentes.
-                </p>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3">
-                        <span class="p-2 bg-primary/20 rounded-lg">📦</span>
-                        <span>Alertas automáticas de bajo inventario</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <span class="p-2 bg-primary/20 rounded-lg">🏷️</span>
-                        <span>Categorización por tipo de producto</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <span class="p-2 bg-primary/20 rounded-lg">📊</span>
-                        <span>Historial de movimientos y merma</span>
-                    </li>
-                </ul>
-            </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Inventory Table -->
+        <div class="lg:col-span-2 glass overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-white/5">
+                    <tr>
+                        <th class="p-4">Producto</th>
+                        <th class="p-4">Categoría</th>
+                        <th class="p-4">Stock</th>
+                        <th class="p-4">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products.map((item) => (
+                            <tr class="border-t border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="p-4 font-medium">{item.name}</td>
+                                <td class="p-4 text-muted">{item.category}</td>
+                                <td class="p-4">{item.stock}</td>
+                                <td class="p-4">
+                                    {item.status === "low" ? (
+                                        <span class="status-badge status-low">
+                                            ⚠️ Bajo Stock
+                                        </span>
+                                    ) : (
+                                        <span class="status-badge status-ok">
+                                            ✓ OK
+                                        </span>
+                                    )}
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Features -->
+        <div class="glass p-8">
+            <h3 class="text-2xl font-semibold mb-6">Características</h3>
+            <ul class="space-y-4">
+                <li class="feature-item">
+                    <span class="feature-icon">📦</span>
+                    <div>
+                        <h4 class="font-semibold text-sm">
+                            Alertas Automáticas
+                        </h4>
+                        <p class="text-xs text-muted">
+                            Notificaciones cuando el stock es bajo
+                        </p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🏷️</span>
+                    <div>
+                        <h4 class="font-semibold text-sm">Categorización</h4>
+                        <p class="text-xs text-muted">
+                            Organiza por tipo de producto
+                        </p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div>
+                        <h4 class="font-semibold text-sm">Historial</h4>
+                        <p class="text-xs text-muted">
+                            Movimientos y merma registrados
+                        </p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🔄</span>
+                    <div>
+                        <h4 class="font-semibold text-sm">Sincronización</h4>
+                        <p class="text-xs text-muted">
+                            Actualización automática con ventas
+                        </p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📈</span>
+                    <div>
+                        <h4 class="font-semibold text-sm">Reportes</h4>
+                        <p class="text-xs text-muted">
+                            Productos más vendidos y rentables
+                        </p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </section>
@@ -82,48 +128,87 @@ const initialStock = [
     .w-full {
         width: 100%;
     }
+
     .text-left {
         text-align: left;
     }
-    .font-medium {
-        font-weight: 500;
+
+    .lg\:col-span-2 {
+        grid-column: span 2 / span 2;
     }
-    .bg-red-500\/20 {
-        background-color: rgba(239, 68, 68, 0.2);
+
+    table {
+        border-collapse: collapse;
     }
-    .text-red-400 {
+
+    th {
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    td {
+        font-size: 0.95rem;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border: 1px solid;
+    }
+
+    .status-low {
+        background: rgba(239, 68, 68, 0.2);
         color: #f87171;
-    }
-    .border-red-500\/30 {
         border-color: rgba(239, 68, 68, 0.3);
     }
-    .bg-secondary\/20 {
-        background-color: rgba(0, 245, 212, 0.2);
+
+    .status-ok {
+        background: rgba(0, 245, 212, 0.2);
+        color: var(--secondary);
+        border-color: rgba(0, 245, 212, 0.3);
     }
-    .px-2 {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
     }
-    .py-1 {
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
+
+    .feature-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateX(3px);
     }
-    .rounded-full {
-        border-radius: 9999px;
+
+    .feature-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
     }
-    .border {
-        border-width: 1px;
+
+    .mb-16 {
+        margin-bottom: 4rem;
     }
-    .lg\:order-1 {
-        order: 1;
-    }
-    .lg\:order-2 {
-        order: 2;
-    }
-    .order-1 {
-        order: 1;
-    }
-    .order-2 {
-        order: 2;
+
+    @media (max-width: 1024px) {
+        .lg\:col-span-2 {
+            grid-column: span 1;
+        }
+
+        table {
+            font-size: 0.875rem;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+        }
     }
 </style>

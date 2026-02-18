@@ -1,10 +1,20 @@
 ---
-const products = [
-    { id: 1, name: "Proteína Whey", price: 45.0, icon: "🥤" },
-    { id: 2, name: "Creatina Monohidratada", price: 30.0, icon: "⚡" },
-    { id: 3, name: "Cinturón Gym", price: 25.0, icon: "🏋️‍♂️" },
-    { id: 4, name: "Agua Mineral", price: 1.5, icon: "💧" },
+// Simplified Sales/POS Demo - Visual showcase
+const sampleProducts = [
+    { name: "Proteína Whey", price: 45.0, icon: "🥤" },
+    { name: "Creatina", price: 30.0, icon: "⚡" },
+    { name: "Cinturón Gym", price: 25.0, icon: "🏋️‍♂️" },
+    { name: "Agua Mineral", price: 1.5, icon: "💧" },
 ];
+
+const sampleReceipt = [
+    { name: "Proteína Whey", price: 45.0 },
+    { name: "Agua Mineral", price: 1.5 },
+];
+
+const subtotal = 46.5;
+const tax = subtotal * 0.16;
+const total = subtotal + tax;
 ---
 
 <section id="sales-demo" class="container">
@@ -13,68 +23,93 @@ const products = [
             Punto de <span class="gradient-text">Venta</span>
         </h2>
         <p class="text-muted max-w-2xl mx-auto">
-            Ventas rápidas, inventario sincronizado y clientes satisfechos en
-            segundos.
+            Sistema POS integrado con facturación automática y control de
+            inventario en tiempo real.
         </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Product Grid -->
-        <div class="lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {
-                products.map((product) => (
-                    <button
-                        class="glass p-4 hover:border-primary transition-all flex flex-col items-center gap-2 product-btn"
-                        data-id={product.id}
-                        data-name={product.name}
-                        data-price={product.price}
-                    >
-                        <span class="text-3xl">{product.icon}</span>
-                        <span class="text-sm font-semibold text-center">
-                            {product.name}
-                        </span>
-                        <span class="text-secondary font-bold">
-                            ${product.price.toFixed(2)}
-                        </span>
-                    </button>
-                ))
-            }
-        </div>
-
-        <!-- Mini Receipt -->
-        <div class="glass p-6 flex flex-col h-full border-primary/20">
-            <h3 class="font-bold mb-6 flex items-center justify-between">
-                Carrito
-                <span class="text-xs text-muted" id="cart-count">0 items</span>
-            </h3>
-
-            <div
-                class="flex-grow space-y-4 mb-6 max-h-[300px] overflow-y-auto"
-                id="cart-items"
-            >
-                <p class="text-muted text-center text-sm italic py-8">
-                    El carrito está vacío
-                </p>
+        <div class="lg:col-span-2">
+            <h3 class="text-xl font-semibold mb-4">Productos Disponibles</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {
+                    sampleProducts.map((product) => (
+                        <div class="product-card glass">
+                            <span class="product-icon">{product.icon}</span>
+                            <span class="product-name">{product.name}</span>
+                            <span class="product-price">
+                                ${product.price.toFixed(2)}
+                            </span>
+                        </div>
+                    ))
+                }
             </div>
 
-            <div class="border-t border-white/10 pt-6 space-y-2">
-                <div class="flex justify-between text-sm">
+            <!-- Features -->
+            <div class="mt-8 glass p-6">
+                <h4 class="font-semibold mb-4">Funcionalidades POS</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="feature-item-small">
+                        <span>💳</span>
+                        <span>Múltiples métodos de pago</span>
+                    </div>
+                    <div class="feature-item-small">
+                        <span>🧾</span>
+                        <span>Facturación automática</span>
+                    </div>
+                    <div class="feature-item-small">
+                        <span>📊</span>
+                        <span>Reportes de ventas diarios</span>
+                    </div>
+                    <div class="feature-item-small">
+                        <span>🔄</span>
+                        <span>Sincronización con inventario</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receipt Preview -->
+        <div class="glass p-6 flex flex-col">
+            <h3 class="font-bold mb-4 flex items-center justify-between">
+                <span>Recibo de Venta</span>
+                <span class="text-xs text-muted">#0042</span>
+            </h3>
+
+            <div class="flex-grow space-y-3 mb-6">
+                {
+                    sampleReceipt.map((item) => (
+                        <div class="receipt-item">
+                            <span>{item.name}</span>
+                            <span class="font-semibold">
+                                ${item.price.toFixed(2)}
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div class="border-t border-white/10 pt-4 space-y-2">
+                <div class="receipt-row">
                     <span>Subtotal</span>
-                    <span id="subtotal">$0.00</span>
+                    <span>${subtotal.toFixed(2)}</span>
                 </div>
-                <div class="flex justify-between text-sm">
+                <div class="receipt-row">
                     <span>IVA (16%)</span>
-                    <span id="tax">$0.00</span>
+                    <span>${tax.toFixed(2)}</span>
                 </div>
-                <div
-                    class="flex justify-between text-xl font-bold pt-2 border-t border-white/5 mt-2"
-                >
+                <div class="receipt-total">
                     <span>Total</span>
-                    <span class="text-primary" id="total">$0.00</span>
+                    <span class="text-primary">${total.toFixed(2)}</span>
                 </div>
-                <button class="btn btn-primary w-full mt-4" id="btn-checkout"
-                    >Finalizar Venta</button
-                >
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-white/5">
+                <div class="payment-info">
+                    <small class="text-muted">Método de Pago</small>
+                    <div class="font-semibold">Efectivo</div>
+                </div>
             </div>
         </div>
     </div>
@@ -84,90 +119,102 @@ const products = [
     .lg\:col-span-2 {
         grid-column: span 2 / span 2;
     }
+
     .grid-cols-4 {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
+
     .grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .product-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+
+    .product-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-3px);
+    }
+
+    .product-icon {
+        font-size: 2.5rem;
+    }
+
+    .product-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .product-price {
+        color: var(--secondary);
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .feature-item-small {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.5rem;
+    }
+
+    .receipt-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        color: var(--muted);
+    }
+
+    .receipt-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.25rem;
+        font-weight: 700;
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .payment-info {
+        text-align: center;
+    }
+
     .flex-grow {
         flex-grow: 1;
     }
-    .overflow-y-auto {
-        overflow-y: auto;
+
+    .mb-16 {
+        margin-bottom: 4rem;
+    }
+
+    @media (max-width: 1024px) {
+        .lg\:col-span-2 {
+            grid-column: span 1;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
     }
 </style>
-
-<script>
-    let cart: { id: number; name: string; price: number }[] = [];
-    const itemsContainer = document.getElementById("cart-items");
-    const cartCount = document.getElementById("cart-count");
-    const subtotalEl = document.getElementById("subtotal");
-    const taxEl = document.getElementById("tax");
-    const totalEl = document.getElementById("total");
-    const checkoutBtn = document.getElementById("btn-checkout");
-
-    function updateCart() {
-        if (!itemsContainer || !cartCount || !subtotalEl || !taxEl || !totalEl)
-            return;
-
-        if (cart.length === 0) {
-            itemsContainer.innerHTML =
-                '<p class="text-muted text-center text-sm italic py-8">El carrito está vacío</p>';
-        } else {
-            itemsContainer.innerHTML = cart
-                .map(
-                    (item, idx) => `
-        <div class="flex justify-between items-center text-sm animate-fade-in">
-          <span>${item.name}</span>
-          <div class="flex items-center gap-3">
-            <b>$${item.price.toFixed(2)}</b>
-            <button class="text-accent hover:text-red-400 remove-btn" data-idx="${idx}">✕</button>
-          </div>
-        </div>
-      `,
-                )
-                .join("");
-        }
-
-        const subtotal = cart.reduce((acc, item) => acc + item.price, 0);
-        const tax = subtotal * 0.16;
-        const total = subtotal + tax;
-
-        cartCount.innerText = `${cart.length} items`;
-        subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
-        taxEl.innerText = `$${tax.toFixed(2)}`;
-        totalEl.innerText = `$${total.toFixed(2)}`;
-
-        // Add remove listeners
-        document.querySelectorAll(".remove-btn").forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                const idx = parseInt(
-                    (e.target as HTMLElement).getAttribute("data-idx") || "0",
-                );
-                cart.splice(idx, 1);
-                updateCart();
-            });
-        });
-    }
-
-    document.querySelectorAll(".product-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const id = parseInt(btn.getAttribute("data-id") || "0");
-            const name = btn.getAttribute("data-name") || "";
-            const price = parseFloat(btn.getAttribute("data-price") || "0");
-            cart.push({ id, name, price });
-            updateCart();
-        });
-    });
-
-    checkoutBtn?.addEventListener("click", () => {
-        if (cart.length === 0) return;
-        checkoutBtn.innerText = "✓ Venta Registrada";
-        cart = [];
-        updateCart();
-        setTimeout(() => {
-            checkoutBtn.innerText = "Finalizar Venta";
-        }, 2000);
-    });
-</script>
