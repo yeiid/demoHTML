@@ -4,6 +4,9 @@
 
 <section class="hero container">
     <div class="hero-content">
+        <div class="hero-eyebrow">
+            <span class="pulse-dot"></span> GymTrack · SaaS Fitness
+        </div>
         <h1 class="text-6xl font-extrabold mb-6">
             Transforma la Gestión de tu Gimnasio con <span class="gradient-text"
                 >GymTrack</span
@@ -49,10 +52,50 @@
         justify-content: center;
         text-align: center;
         padding-top: 8rem;
+        position: relative;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 60% 50% at 70% 40%, rgba(249,115,22,.07) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 60% at 20% 70%, rgba(56,189,248,.05) 0%, transparent 60%);
+        pointer-events: none;
     }
 
     .hero-content {
         max-width: 900px;
+        position: relative;
+    }
+
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        font-family: var(--font-mono);
+        font-size: .75rem;
+        color: var(--accent);
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        border: 1px solid rgba(249,115,22,.3);
+        padding: .35rem .85rem;
+        border-radius: 2px;
+        margin-bottom: 2rem;
+    }
+
+    .pulse-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: .4; transform: scale(.7); }
     }
 
     .text-6xl {
@@ -87,7 +130,7 @@
 
     .btn-download:hover {
         transform: scale(1.05);
-        box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.4);
+        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
     }
 
     .btn-download svg {
@@ -102,27 +145,13 @@
     }
 
     @keyframes bounce {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-5px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
     }
 
     @media (max-width: 768px) {
-        .text-6xl {
-            font-size: 2.5rem;
-        }
-
-        .flex {
-            flex-direction: column;
-        }
-
-        .btn-download {
-            width: 100%;
-            justify-content: center;
-        }
+        .text-6xl { font-size: 2.5rem; }
+        .flex { flex-direction: column; }
+        .btn-download { width: 100%; justify-content: center; }
     }
 </style>

@@ -1,28 +1,67 @@
+/* ═══════════════════════════════════════════════
+   NeuralJira Design System — Brand Colors
+   ═══════════════════════════════════════════════ */
+
 :root {
-  --primary: #9d4edd;
-  --primary-dark: #7b2cbf;
-  --secondary: #00f5d4;
-  --accent: #fee440;
-  --bg: #0b090a;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.1);
-  --text: #f8f9fa;
-  --text-muted: #adb5bd;
+  /* ── Brand Palette ── */
+  --ink:       #0B0F1A;
+  --deep:      #111827;
+  --panel:     #1A2235;
+  --border:    #252E42;
+  --muted:     #4A5568;
+  --text:      #CBD5E1;
+  --light:     #E2E8F0;
+  --white:     #F8FAFC;
+
+  /* ── Accent Colors ── */
+  --accent:    #F97316;
+  --accent2:   #FB923C;
+  --electric:  #38BDF8;
+  --green:     #34D399;
+  --red:       #F87171;
+  --purple:    #A78BFA;
+
+  /* ── Aliases for backward compatibility ── */
+  --primary:   #F97316;
+  --primary-dark: #EA580C;
+  --secondary: #38BDF8;
+  --bg:        #0B0F1A;
+  --card-bg:   rgba(26, 34, 53, 0.8);
+  --text-muted: #4A5568;
+
+  /* ── Typography ── */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
-  background-color: var(--bg);
+  font-family: var(--font-display);
+  background-color: var(--ink);
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.7;
   overflow-x: hidden;
 }
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -.025em;
+  color: var(--white);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s;
+}
+a:hover { color: var(--accent2); }
 
 .container {
   max-width: 1200px;
@@ -30,49 +69,153 @@ body {
   padding: 0 2rem;
 }
 
+/* ── Glass Card ── */
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 12px;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
 }
 
-h1,
-h2,
-h3 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.glass:hover {
+  border-color: rgba(249, 115, 22, .3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
 }
 
+/* ── Gradient Text ── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, var(--accent), var(--electric));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* ── Buttons ── */
 .btn {
   display: inline-block;
-  padding: 0.8rem 2rem;
-  border-radius: 0.5rem;
+  padding: .8rem 2rem;
+  border-radius: 6px;
+  font-family: var(--font-display);
   font-weight: 600;
+  font-size: .9rem;
+  letter-spacing: .03em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all .25s ease;
   text-decoration: none;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: white;
   border: none;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+.btn-primary {
+  background: var(--accent);
+  color: var(--ink);
 }
 
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, .3);
+  color: var(--ink);
+}
+
+.glass.btn, .btn-ghost {
+  background: transparent;
+  color: var(--light);
+  border: 1px solid var(--border);
+}
+
+.glass.btn:hover, .btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-block;
+  padding: .35rem .85rem;
+  background: rgba(249, 115, 22, .1);
+  color: var(--accent);
+  border: 1px solid rgba(249, 115, 22, .3);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── Sections ── */
 section {
   padding: 4rem 0;
+}
+
+/* ── Dividers ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 3rem 0;
+}
+
+/* ── Utility Classes ── */
+.text-muted { color: var(--muted); }
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-extrabold { font-weight: 800; }
+.mb-3 { margin-bottom: .75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-10 { margin-bottom: 2.5rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mt-12 { margin-top: 3rem; }
+.mt-20 { margin-top: 5rem; }
+.pt-20 { padding-top: 5rem; }
+.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+.py-20 { padding-top: 5rem; padding-bottom: 5rem; }
+.px-12 { padding-left: 3rem; padding-right: 3rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.p-8 { padding: 2rem; }
+.p-16 { padding: 4rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-3xl { max-width: 48rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.border-t { border-top: 1px solid var(--border); }
+.flex { display: flex; }
+.gap-4 { gap: 1rem; }
+.gap-8 { gap: 2rem; }
+.grid { display: grid; }
+.transition-all { transition: all .3s ease; }
+.duration-300 { transition-duration: .3s; }
+
+/* ── Font Sizes ── */
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 2rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-5xl { font-size: 3rem; line-height: 1.2; }
+.text-6xl { font-size: 3.5rem; line-height: 1.1; }
+
+/* ── Hover Effects ── */
+.hover\:-translate-y-2:hover { transform: translateY(-2px); }
+.hover\:-translate-y-5:hover { transform: translateY(-5px); }
+
+/* ── Responsive Grid ── */
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .text-6xl { font-size: 2.5rem; }
+  .text-5xl { font-size: 2rem; }
+  .text-4xl { font-size: 1.75rem; }
+  .flex { flex-direction: column; }
+  .cta-buttons { flex-direction: column; }
+  .cta-buttons .btn { width: 100%; justify-content: center; }
 }
