@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  demohtml:
+    build: .
+    container_name: demohtml
+    restart: unless-stopped
+    ports:
+      - "4331:4331"
+    environment:
+      - NODE_ENV=production
