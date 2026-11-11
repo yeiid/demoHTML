@@ -441,6 +441,10 @@ const platforms = [
                     versionBadge.textContent = `v${String(data.version).replace(/^v/, '')}`;
                 }
             }
+            const brandBadge = document.getElementById('brand-version-badge');
+            if (brandBadge && data.version) {
+                brandBadge.textContent = `v${String(data.version).replace(/^v/, '')}`;
+            }
             if (data.release_notes && releaseNotesEl) {
                 releaseNotesEl.textContent = String(data.release_notes);
             }
