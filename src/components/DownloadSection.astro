@@ -429,17 +429,23 @@ const platforms = [
             if (statusText) {
                 statusText.textContent = `Conectado a server.neuraljira.tech · Instalador Oficial Verificado`;
             }
-            if (data.version && versionBadge) {
-                versionBadge.textContent = `v${String(data.version).replace(/^v/, '')}`;
+
+            const platforms = data.platforms || {};
+            const winInfo = platforms.windows;
+            const linuxInfo = platforms.linux;
+
+            if (versionBadge) {
+                if (winInfo?.version && linuxInfo?.version && winInfo.version !== linuxInfo.version) {
+                    versionBadge.textContent = `Win: v${winInfo.version} · Linux: v${linuxInfo.version}`;
+                } else if (data.version) {
+                    versionBadge.textContent = `v${String(data.version).replace(/^v/, '')}`;
+                }
             }
             if (data.release_notes && releaseNotesEl) {
                 releaseNotesEl.textContent = String(data.release_notes);
             }
 
-            const platforms = data.platforms || {};
-
             // Update Windows Installer metadata safely
-            const winInfo = platforms.windows;
             const winShaEl = document.getElementById('win-sha-value');
             if (winInfo) {
                 const winInstallerUrl = winInfo.installer_url || `${serverBase}/api/download?platform=windows`;
@@ -482,7 +488,6 @@ const platforms = [
             }
 
             // Update Linux Installer metadata safely
-            const linuxInfo = platforms.linux;
             const linuxShaEl = document.getElementById('linux-sha-value');
             if (linuxInfo) {
                 const linuxInstallerUrl = linuxInfo.installer_url || `${serverBase}/api/download?platform=linux`;
