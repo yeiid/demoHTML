@@ -8,64 +8,81 @@
             Control <span class="gradient-text">Total</span>
         </h2>
         <p class="text-muted max-w-2xl mx-auto">
-            Configura tu negocio a tu medida. Permisos, impuestos y
-            sincronización cloud en un solo panel.
+            Configura tu negocio a tu medida. Permisos, licenciamiento Ed25519, autosanación de base de datos y actualizaciones OTA en un solo panel.
         </p>
     </div>
 
-    <div
-        class="glass p-8 flex flex-col md:flex-row gap-8 items-center border-secondary/20"
-    >
-        <div class="flex-1 space-y-4">
-            <div
-                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:border-secondary transition-colors"
-            >
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">⚙️</span>
-                    <span>Configuración de IVA (16%)</span>
+    <div class="config-grid">
+        <div class="glass p-8 space-y-4">
+            <h3 class="text-xl font-bold mb-4">Ajustes Operativos y Nube</h3>
+            <div class="config-row">
+                <div class="config-row-left">
+                    <span class="text-xl" aria-hidden="true">⚙️</span>
+                    <div>
+                        <div class="font-semibold">Configuración de Impuestos / IVA</div>
+                        <small class="text-muted">Cálculo automático en recibos POS</small>
+                    </div>
                 </div>
-                <div class="toggle active"></div>
+                <div class="toggle active" aria-hidden="true"></div>
             </div>
-            <div
-                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-white/10 hover:border-secondary transition-colors"
-            >
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🔏</span>
-                    <span>Gestión de Administradores</span>
+            <div class="config-row">
+                <div class="config-row-left">
+                    <span class="text-xl" aria-hidden="true">🩹</span>
+                    <div>
+                        <div class="font-semibold">Autosanación de Base de Datos (db_repair)</div>
+                        <small class="text-muted">Verificación y migración automática al iniciar</small>
+                    </div>
                 </div>
-                <button class="btn glass py-1 px-4 text-xs">Gestionar</button>
+                <div class="toggle active" aria-hidden="true"></div>
             </div>
-            <div
-                class="flex items-center justify-between p-4 bg-white/5 rounded-lg border border-secondary/50 shadow-[0_0_15px_rgba(0,245,212,0.1)]"
-            >
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">⚡</span>
-                    <span class="font-bold">Modo Sincronización Automática</span
-                    >
+            <div class="config-row highlight-row">
+                <div class="config-row-left">
+                    <span class="text-xl" aria-hidden="true">☁️</span>
+                    <div>
+                        <div class="font-bold">Sincronización Híbrida Cloud</div>
+                        <small class="text-muted">Respaldo continuo sin afectar velocidad offline</small>
+                    </div>
                 </div>
-                <div class="toggle active animate-pulse"></div>
+                <div class="toggle active animate-pulse" aria-hidden="true"></div>
             </div>
         </div>
 
-        <div class="flex-1 text-center md:text-left">
-            <h3 class="text-2xl font-bold mb-4">Seguridad Profesional</h3>
-            <p class="text-muted mb-6">
-                Administra roles de usuario y permisos granulares. Mantén el
-                historial de logs de cada acción realizada en el sistema para
-                máxima transparencia.
-            </p>
-            <div class="flex gap-4 justify-center md:justify-start">
-                <div class="glass p-3 flex flex-col items-center">
-                    <span class="text-2xl">🛡️</span>
-                    <small>Logs</small>
+        <div class="glass p-8">
+            <div class="license-header">
+                <div>
+                    <span class="badge">Ed25519 Signed</span>
+                    <h3 class="text-xl font-bold mt-2">Estado de Licencia & OTA</h3>
                 </div>
-                <div class="glass p-3 flex flex-col items-center">
-                    <span class="text-2xl">🔑</span>
+                <span class="status-active-pill">● ACTIVA</span>
+            </div>
+
+            <div class="license-meta">
+                <div class="meta-line">
+                    <span class="text-muted">Servidor Central:</span>
+                    <code class="font-mono">server.neuraljira.tech</code>
+                </div>
+                <div class="meta-line">
+                    <span class="text-muted">Validación Offline:</span>
+                    <span>Certificado Ed25519 Verificado</span>
+                </div>
+                <div class="meta-line">
+                    <span class="text-muted">Canal de Actualización:</span>
+                    <span>Estable (OTA con SHA-256)</span>
+                </div>
+            </div>
+
+            <div class="pillars-row">
+                <div class="glass pillar-mini">
+                    <span class="text-2xl" aria-hidden="true">🛡️</span>
+                    <small>Auditoría</small>
+                </div>
+                <div class="glass pillar-mini">
+                    <span class="text-2xl" aria-hidden="true">🔑</span>
                     <small>Roles</small>
                 </div>
-                <div class="glass p-3 flex flex-col items-center">
-                    <span class="text-2xl">🔄</span>
-                    <small>Backups</small>
+                <div class="glass pillar-mini">
+                    <span class="text-2xl" aria-hidden="true">🔄</span>
+                    <small>OTA Sync</small>
                 </div>
             </div>
         </div>
@@ -73,28 +90,130 @@
 </section>
 
 <style>
+    .config-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .space-y-4 > * + * {
+        margin-top: 1rem;
+    }
+
+    .mt-2 {
+        margin-top: 0.5rem;
+    }
+
+    .config-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0.65rem;
+        border: 1px solid var(--border);
+    }
+
+    .highlight-row {
+        border-color: rgba(56, 189, 248, 0.45);
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.08);
+    }
+
+    .config-row-left {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+    }
+
+    .config-row-left small {
+        display: block;
+        font-size: 0.78rem;
+    }
+
+    .license-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .status-active-pill {
+        background: rgba(52, 211, 153, 0.15);
+        color: var(--green);
+        border: 1px solid rgba(52, 211, 153, 0.35);
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        font-family: var(--font-mono);
+    }
+
+    .license-meta {
+        background: var(--deep);
+        border: 1px solid var(--border);
+        border-radius: 0.65rem;
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .meta-line {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.45rem 0;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .meta-line:last-child {
+        border-bottom: none;
+    }
+
+    .font-mono {
+        font-family: var(--font-mono);
+        color: var(--electric);
+    }
+
+    .pillars-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .pillar-mini {
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
     .toggle {
-        width: 40px;
-        height: 20px;
+        width: 42px;
+        height: 22px;
         background: #333;
         border-radius: 20px;
         position: relative;
-        cursor: pointer;
+        flex-shrink: 0;
     }
+
     .toggle::after {
         content: "";
         position: absolute;
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         background: white;
         border-radius: 50%;
         top: 2px;
         left: 2px;
         transition: transform 0.3s;
     }
+
     .toggle.active {
         background: var(--secondary);
     }
+
     .toggle.active::after {
         transform: translateX(20px);
     }
@@ -108,7 +227,9 @@
             opacity: 0.6;
         }
     }
+
     .animate-pulse {
         animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 </style>
+

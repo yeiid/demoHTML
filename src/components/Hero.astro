@@ -5,7 +5,7 @@
 <section class="hero container">
     <div class="hero-content">
         <div class="hero-eyebrow">
-            <span class="pulse-dot"></span> GymTrack · SaaS Fitness
+            <span class="pulse-dot"></span> GymTrack v1.1.4 · Windows & Linux · Ed25519
         </div>
         <h1 class="text-6xl font-extrabold mb-6">
             Transforma la Gestión de tu Gimnasio con <span class="gradient-text"
@@ -13,13 +13,14 @@
             >
         </h1>
         <p class="text-xl text-muted mb-10 max-w-3xl">
-            La solución SAAS definitiva para pequeños y medianos gimnasios.
-            Control total, ventas rápidas y sincronización en la nube sin
-            complicaciones.
+            La plataforma de escritorio híbrida definitiva para gimnasios modernos.
+            Operación 100% offline ultrarrápida, punto de venta POS, sincronización
+            en la nube y descargas verificadas desde nuestro servidor central.
         </p>
         <div class="flex gap-4">
             <a href="#download" class="btn btn-primary btn-download">
                 <svg
+                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
                     height="20"
@@ -34,24 +35,24 @@
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                Prueba Gratis 7 Días
+                Descargar Prueba Gratis (7 Días)
             </a>
-            <a href="#features" class="btn glass">Ver Demo Interactiva</a>
+            <a href="#demo" class="btn glass">Explorar Demo Interactiva</a>
         </div>
         <p class="trial-note">
-            Sin tarjeta de crédito • Instalación instantánea • Soporte incluido
+            🪟 Windows 10/11 & 🐧 Linux (64-bit) • Verificado con SHA-256 desde <code>server.neuraljira.tech</code>
         </p>
     </div>
 </section>
 
 <style>
     .hero {
-        min-height: 80vh;
+        min-height: 78vh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding-top: 8rem;
+        padding-top: 6rem;
         position: relative;
     }
 
@@ -114,6 +115,7 @@
     .flex {
         display: flex;
         justify-content: center;
+        align-items: center;
     }
     .gap-4 {
         gap: 1rem;
@@ -140,8 +142,14 @@
     .trial-note {
         margin-top: 1.5rem;
         font-size: 0.875rem;
-        color: var(--muted);
-        opacity: 0.8;
+        color: var(--text);
+        opacity: 0.85;
+    }
+
+    .trial-note code {
+        font-family: var(--font-mono);
+        color: var(--electric);
+        font-size: 0.8rem;
     }
 
     @keyframes bounce {
@@ -155,3 +163,4 @@
         .btn-download { width: 100%; justify-content: center; }
     }
 </style>
+

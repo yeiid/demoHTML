@@ -8,7 +8,7 @@
   --deep:      #111827;
   --panel:     #1A2235;
   --border:    #252E42;
-  --muted:     #4A5568;
+  --muted:     #94A3B8;
   --text:      #CBD5E1;
   --light:     #E2E8F0;
   --white:     #F8FAFC;
@@ -27,11 +27,24 @@
   --secondary: #38BDF8;
   --bg:        #0B0F1A;
   --card-bg:   rgba(26, 34, 53, 0.8);
-  --text-muted: #4A5568;
+  --text-muted: #94A3B8;
 
   /* ── Typography ── */
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
+}
+
+.sr-only:where(:not(:focus-within, :active)),
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
 }
 
 *, *::before, *::after {

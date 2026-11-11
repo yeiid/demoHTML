@@ -1,183 +1,318 @@
 ---
+const SERVER_BASE_URL = "https://server.neuraljira.tech";
 
+const platforms = [
+    {
+        id: "windows",
+        name: "Windows 10 / 11",
+        badge: "Instalador Oficial Inteligente (64-bit)",
+        filename: "GymTrack-Setup.exe",
+        sizeDefault: "6.7 MB",
+        downloadUrl: `${SERVER_BASE_URL}/api/download?platform=windows`,
+        directUrl: `${SERVER_BASE_URL}/downloads/GymTrack-Setup.exe`,
+        description:
+            "Descarga el instalador ligero oficial. Al abrirlo, se encarga automáticamente de descargar la última versión del software GymTrack desde nuestro servidor, verificar su integridad SHA-256 y crear tus accesos directos.",
+        requirements: "Windows 10 o Windows 11 (x64) • Sin dependencias externas",
+    },
+    {
+        id: "linux",
+        name: "Linux Desktop",
+        badge: "Instalador Oficial Inteligente (x86_64)",
+        filename: "gymtrack-installer",
+        sizeDefault: "6.5 MB",
+        downloadUrl: `${SERVER_BASE_URL}/api/download?platform=linux`,
+        directUrl: `${SERVER_BASE_URL}/downloads/gymtrack-installer`,
+        description:
+            "Asistente gráfico nativo para Linux. Se conecta de forma segura al servidor central para descargar e instalar el software completo de GymTrack, validando la firma SHA-256 y configurando el acceso en tu menú de aplicaciones.",
+        requirements: "Ubuntu 20.04+, Debian 11+, Fedora o derivados (x86_64)",
+    },
+];
 ---
 
-<section id="download" class="container py-20">
+<section id="download" class="container py-20" data-server-url={SERVER_BASE_URL}>
     <div class="download-wrapper">
         <div class="download-header text-center mb-12">
-            <span class="badge mb-4">Prueba Gratuita de 7 Días</span>
+            <span class="badge mb-4">Prueba Gratuita de 7 Días · Instalador Oficial</span>
             <h2 class="text-5xl font-bold mb-6">
-                Descarga <span class="gradient-text">GymTrack</span> Ahora
+                Descarga <span class="gradient-text">GymTrack</span> desde el Servidor Oficial
             </h2>
             <p class="text-xl text-muted max-w-2xl mx-auto">
-                Experimenta el poder completo de GymTrack sin compromiso. Todas
-                las funcionalidades desbloqueadas durante 7 días.
+                Descarga nuestro <strong>instalador ligero (~6.5 MB)</strong> desde <code>server.neuraljira.tech</code>. El instalador se encarga automáticamente de descargar el software completo, verificar su firma <strong>SHA-256</strong> y dejar listo tu gimnasio.
             </p>
         </div>
 
-        <div class="download-content">
-            <div class="download-card glass">
-                <div class="card-icon">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="64"
-                        height="64"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-                        ></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
+        <!-- Unified Server Status Bar -->
+        <div class="server-status-bar glass mb-8" role="status" aria-live="polite">
+            <div class="status-left">
+                <span class="status-dot" id="server-status-dot"></span>
+                <span class="font-mono text-xs" id="server-status-text">
+                    Servidor Oficial: <strong>server.neuraljira.tech</strong> · Canal Estable
+                </span>
+            </div>
+            <div class="status-right">
+                <span class="version-pill" id="live-version-badge">v1.1.4</span>
+                <span class="security-pill">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
+                    TLS + SHA-256 + Ed25519
+                </span>
+            </div>
+        </div>
+
+        <div class="download-hub glass">
+            <!-- OS Selector Tabs -->
+            <div class="os-tabs-header">
+                <div class="os-tabs-label">
+                    <span class="font-mono text-xs text-muted">// SELECCIONA TU SISTEMA OPERATIVO</span>
+                    <span class="os-detected-badge" id="os-detected-badge">Detectando sistema...</span>
                 </div>
-
-                <h3 class="text-3xl font-bold mb-4">GymTrack Desktop</h3>
-                <p class="text-muted mb-6">
-                    Versión completa para Windows con todas las funcionalidades
-                </p>
-
-                <div class="features-list mb-8">
-                    <div class="feature-item">
-                        <svg
-                            class="check-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Gestión completa de miembros</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg
-                            class="check-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Sistema POS integrado</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg
-                            class="check-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Control de inventario</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg
-                            class="check-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Reportes financieros detallados</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg
-                            class="check-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        <span>Sincronización en la nube</span>
-                    </div>
-                </div>
-
-                <a
-                    href="/downloads/gymtrack.exe"
-                    download
-                    class="btn btn-primary btn-large"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                <div class="os-tablist" role="tablist" aria-label="Plataformas de descarga disponibles">
+                    <button
+                        type="button"
+                        role="tab"
+                        id="tab-btn-windows"
+                        aria-selected="true"
+                        aria-controls="panel-windows"
+                        class="os-tab active"
+                        data-os-tab="windows"
                     >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-                        ></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    Descargar Ahora (58 MB)
-                </a>
-
-                <p class="download-note">
-                    Compatible con Windows 10/11 • Sin tarjeta de crédito
-                    requerida
-                </p>
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                        </svg>
+                        <span>Windows 10/11</span>
+                    </button>
+                    <button
+                        type="button"
+                        role="tab"
+                        id="tab-btn-linux"
+                        aria-selected="false"
+                        aria-controls="panel-linux"
+                        tabindex="-1"
+                        class="os-tab"
+                        data-os-tab="linux"
+                    >
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span>Linux (64-bit)</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- <div class="info-cards">
-                <div class="info-card glass">
-                    <div class="info-icon">⚡</div>
-                    <h4>Instalación Rápida</h4>
-                    <p>Descarga y ejecuta. Sin configuración complicada.</p>
+            <div class="hub-grid">
+                <!-- Left Column: Active Platform Download Panel -->
+                <div class="platform-panels">
+                    <!-- WINDOWS PANEL -->
+                    <div
+                        id="panel-windows"
+                        role="tabpanel"
+                        aria-labelledby="tab-btn-windows"
+                        class="os-panel active"
+                        data-os-panel="windows"
+                    >
+                        <div class="panel-badge-row">
+                            <span class="platform-tag">{platforms[0].badge}</span>
+                            <span class="file-meta font-mono" id="win-file-meta">
+                                {platforms[0].filename} • {platforms[0].sizeDefault}
+                            </span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">Instalador GymTrack para Windows</h3>
+                        <p class="text-muted mb-6">{platforms[0].description}</p>
+
+                        <div class="download-actions-group">
+                            <a
+                                id="win-primary-download"
+                                href={platforms[0].downloadUrl}
+                                rel="noopener noreferrer"
+                                class="btn btn-primary btn-download-main"
+                            >
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <div class="btn-text-block">
+                                    <span class="btn-title">Descargar Instalador Windows (GymTrack-Setup.exe)</span>
+                                    <span class="btn-sub" id="win-btn-sub">Instalador Ligero ({platforms[0].sizeDefault}) • Descarga e instala el software automáticamente</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="checksum-box mt-6">
+                            <div class="checksum-header">
+                                <span class="font-mono text-xs">🔒 CHECKSUM SHA-256 DEL INSTALADOR (WINDOWS)</span>
+                                <button type="button" class="copy-sha-btn" data-copy-target="win-sha-value" aria-label="Copiar hash SHA-256 del instalador de Windows">
+                                    Copiar Hash
+                                </button>
+                            </div>
+                            <code id="win-sha-value" class="checksum-code">
+                                Verificando firma con server.neuraljira.tech...
+                            </code>
+                        </div>
+
+                        <p class="download-note">
+                            ✓ {platforms[0].requirements} • Incluye actualizaciones automáticas OTA
+                        </p>
+                    </div>
+
+                    <!-- LINUX PANEL -->
+                    <div
+                        id="panel-linux"
+                        role="tabpanel"
+                        aria-labelledby="tab-btn-linux"
+                        class="os-panel"
+                        data-os-panel="linux"
+                        hidden
+                    >
+                        <div class="panel-badge-row">
+                            <span class="platform-tag">{platforms[1].badge}</span>
+                            <span class="file-meta font-mono" id="linux-file-meta">
+                                {platforms[1].filename} • {platforms[1].sizeDefault}
+                            </span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-3">Instalador GymTrack para Linux</h3>
+                        <p class="text-muted mb-6">{platforms[1].description}</p>
+
+                        <div class="download-actions-group">
+                            <a
+                                id="linux-primary-download"
+                                href={platforms[1].downloadUrl}
+                                rel="noopener noreferrer"
+                                class="btn btn-primary btn-download-main"
+                            >
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <div class="btn-text-block">
+                                    <span class="btn-title">Descargar Instalador Linux (gymtrack-installer)</span>
+                                    <span class="btn-sub" id="linux-btn-sub">Asistente GUI ({platforms[1].sizeDefault}) • Descarga e instala el software automáticamente</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="checksum-box mt-6">
+                            <div class="checksum-header">
+                                <span class="font-mono text-xs">🔒 CHECKSUM SHA-256 DEL INSTALADOR (LINUX)</span>
+                                <button type="button" class="copy-sha-btn" data-copy-target="linux-sha-value" aria-label="Copiar hash SHA-256 del instalador de Linux">
+                                    Copiar Hash
+                                </button>
+                            </div>
+                            <code id="linux-sha-value" class="checksum-code">
+                                Verificando firma con server.neuraljira.tech...
+                            </code>
+                        </div>
+
+                        <p class="download-note">
+                            ✓ {platforms[1].requirements} • Crea acceso directo en tu menú de aplicaciones
+                        </p>
+                    </div>
                 </div>
-                <div class="info-card glass">
-                    <div class="info-icon">🔒</div>
-                    <h4>100% Seguro</h4>
-                    <p>Sin malware, sin spyware. Verificado y firmado.</p>
+
+                <!-- Right Column: Grouped Installer Links & How the Installer Works -->
+                <div class="grouped-links-sidebar">
+                    <div class="grouped-box">
+                        <h4 class="grouped-title">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            Instaladores Oficiales Agrupados
+                        </h4>
+                        <p class="text-xs text-muted mb-4">
+                            Enlaces directos al instalador oficial en <code>server.neuraljira.tech</code> con protección <code>nosniff</code> y validación SHA-256:
+                        </p>
+
+                        <ul class="grouped-download-list" role="list">
+                            <li>
+                                <a id="group-link-win" href={platforms[0].downloadUrl} rel="noopener noreferrer" class="grouped-link-item">
+                                    <span class="grouped-os-icon">🪟</span>
+                                    <div class="grouped-link-info">
+                                        <strong>GymTrack-Setup.exe (Windows)</strong>
+                                        <small id="group-meta-win">Instalador Oficial • 6.7 MB • Windows 10/11</small>
+                                    </div>
+                                    <span class="grouped-dl-badge">HTTPS ↓</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a id="group-link-linux-inst" href={platforms[1].downloadUrl} rel="noopener noreferrer" class="grouped-link-item">
+                                    <span class="grouped-os-icon">🐧</span>
+                                    <div class="grouped-link-info">
+                                        <strong>gymtrack-installer (Linux)</strong>
+                                        <small id="group-meta-linux">Instalador Oficial GUI • 6.5 MB • x86_64</small>
+                                    </div>
+                                    <span class="grouped-dl-badge">HTTPS ↓</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="release-notes-mini mt-4">
+                            <div class="font-mono text-xs text-accent mb-1">// ¿CÓMO FUNCIONA EL INSTALADOR?</div>
+                            <p id="live-release-notes" class="text-xs text-muted">
+                                1. Descargas el instalador ligero (~6.5 MB). 2. Al abrirlo, consulta <code>/api/version</code>, descarga el paquete completo de GymTrack con verificación SHA-256 y crea tus accesos directos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="included-box mt-4">
+                        <h4 class="text-sm font-bold mb-3">Lo que hace el instalador por ti:</h4>
+                        <ul class="features-checklist" role="list">
+                            <li>
+                                <span class="check-mark" aria-hidden="true">1</span>
+                                <span>Descarga el software oficial desde <code>server.neuraljira.tech</code></span>
+                            </li>
+                            <li>
+                                <span class="check-mark" aria-hidden="true">2</span>
+                                <span>Verifica la integridad criptográfica SHA-256 del paquete</span>
+                            </li>
+                            <li>
+                                <span class="check-mark" aria-hidden="true">3</span>
+                                <span>Crea accesos directos en Escritorio y Menú de Inicio</span>
+                            </li>
+                            <li>
+                                <span class="check-mark" aria-hidden="true">4</span>
+                                <span>Gestiona futuras actualizaciones OTA sin perder tu base de datos</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="info-card glass">
-                    <div class="info-icon">💬</div>
-                    <h4>Soporte Incluido</h4>
-                    <p>Asistencia técnica durante tu periodo de prueba.</p>
-                </div>
-            </div> -->
+            </div>
         </div>
-<!-- 
+
+        <!-- Security & Trust Pillars -->
+        <div class="info-cards">
+            <div class="info-card glass">
+                <div class="info-icon" aria-hidden="true">📦</div>
+                <h3>1. Instalador Ligero (~6.5 MB)</h3>
+                <p>Descargas únicamente el asistente oficial nativo en Go desde nuestro servidor seguro por HTTPS, sin archivos pesados ni dependencias externas.</p>
+            </div>
+            <div class="info-card glass">
+                <div class="info-icon" aria-hidden="true">🛡️</div>
+                <h3>2. Descarga y Validación Automática</h3>
+                <p>El instalador descarga automáticamente el núcleo completo de GymTrack y comprueba su firma SHA-256 antes de instalarlo en tu equipo.</p>
+            </div>
+            <div class="info-card glass">
+                <div class="info-icon" aria-hidden="true">🔄</div>
+                <h3>3. Actualizaciones OTA Inteligentes</h3>
+                <p>El instalador permanece integrado para actualizar el software con un clic cuando lancemos mejoras, manteniendo intacta tu base de datos SQLite local.</p>
+            </div>
+        </div>
+
+        <!-- System Requirements -->
         <div class="system-requirements glass mt-12">
             <h3 class="text-2xl font-bold mb-6">Requisitos del Sistema</h3>
             <div class="requirements-grid">
                 <div class="requirement">
-                    <strong>Sistema Operativo:</strong>
-                    <span>Windows 10 o superior (64-bit)</span>
+                    <strong>Sistemas Operativos:</strong>
+                    <span>Windows 10/11 (64-bit) o Linux (Ubuntu 20.04+, Debian, Fedora 64-bit)</span>
                 </div>
                 <div class="requirement">
                     <strong>Procesador:</strong>
-                    <span>Intel Core i3 o equivalente</span>
+                    <span>Intel Core i3 / AMD Ryzen 3 o equivalente (x86_64)</span>
                 </div>
                 <div class="requirement">
                     <strong>Memoria RAM:</strong>
@@ -185,20 +320,238 @@
                 </div>
                 <div class="requirement">
                     <strong>Espacio en Disco:</strong>
-                    <span>500 MB disponibles</span>
+                    <span>200 MB disponibles para el software instalado y respaldos locales</span>
                 </div>
                 <div class="requirement">
-                    <strong>Conexión:</strong>
-                    <span>Internet para sincronización en la nube</span>
+                    <strong>Modo Offline / Red:</strong>
+                    <span>Conexión durante la instalación y activación • Operación diaria 100% offline</span>
                 </div>
                 <div class="requirement">
                     <strong>Pantalla:</strong>
-                    <span>Resolución mínima 1366x768</span>
+                    <span>Resolución mínima 1366×768 (1920×1080 recomendado)</span>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </section>
+
+<script>
+    // OS Tab switching + Keyboard navigation (ArrowLeft / ArrowRight)
+    const osTabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-os-tab]'));
+    const osPanels = Array.from(document.querySelectorAll<HTMLElement>('[data-os-panel]'));
+    const detectedBadge = document.getElementById('os-detected-badge');
+
+    function selectPlatformTab(osId: string, moveFocus = false) {
+        osTabs.forEach((tab) => {
+            const isMatch = tab.dataset.osTab === osId;
+            tab.classList.toggle('active', isMatch);
+            tab.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+            tab.setAttribute('tabindex', isMatch ? '0' : '-1');
+            if (isMatch && moveFocus) {
+                tab.focus();
+            }
+        });
+
+        osPanels.forEach((panel) => {
+            const isMatch = panel.dataset.osPanel === osId;
+            panel.classList.toggle('active', isMatch);
+            panel.hidden = !isMatch;
+        });
+    }
+
+    osTabs.forEach((tab, idx) => {
+        tab.addEventListener('click', () => {
+            if (tab.dataset.osTab) {
+                selectPlatformTab(tab.dataset.osTab, false);
+            }
+        });
+
+        tab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const nextIdx = e.key === 'ArrowRight'
+                    ? (idx + 1) % osTabs.length
+                    : (idx - 1 + osTabs.length) % osTabs.length;
+                const nextOs = osTabs[nextIdx].dataset.osTab;
+                if (nextOs) selectPlatformTab(nextOs, true);
+            }
+        });
+    });
+
+    // Auto-detect visitor OS
+    const ua = navigator.userAgent.toLowerCase();
+    const isLinux = ua.includes('linux') && !ua.includes('android');
+    if (isLinux) {
+        selectPlatformTab('linux', false);
+        if (detectedBadge) detectedBadge.textContent = '🐧 Linux detectado automáticamente';
+    } else if (ua.includes('win')) {
+        selectPlatformTab('windows', false);
+        if (detectedBadge) detectedBadge.textContent = '🪟 Windows detectado automáticamente';
+    } else {
+        if (detectedBadge) detectedBadge.textContent = 'Disponible para Windows y Linux';
+    }
+
+    // Format bytes helper
+    function formatMB(bytes?: number): string {
+        if (!bytes || bytes <= 0) return '';
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    // Validate URL strictly belongs to the trusted release server origin
+    function isTrustedDownloadUrl(rawUrl: string, trustedBase: string): boolean {
+        try {
+            const parsed = new URL(rawUrl, trustedBase);
+            const trusted = new URL(trustedBase);
+            return parsed.protocol === 'https:' && parsed.hostname === trusted.hostname;
+        } catch {
+            return false;
+        }
+    }
+
+    // Fetch live version, installer sizes, and installer SHA-256 hashes from server.neuraljira.tech
+    async function syncWithReleaseServer() {
+        const section = document.getElementById('download');
+        const serverBase = section?.getAttribute('data-server-url') || 'https://server.neuraljira.tech';
+        const statusDot = document.getElementById('server-status-dot');
+        const statusText = document.getElementById('server-status-text');
+        const versionBadge = document.getElementById('live-version-badge');
+        const releaseNotesEl = document.getElementById('live-release-notes');
+
+        try {
+            const resp = await fetch(`${serverBase}/api/version`, {
+                method: 'GET',
+                headers: { Accept: 'application/json' },
+            });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const data = await resp.json();
+
+            if (statusDot) statusDot.classList.add('online');
+            if (statusText) {
+                statusText.textContent = `Conectado a server.neuraljira.tech · Instalador Oficial Verificado`;
+            }
+            if (data.version && versionBadge) {
+                versionBadge.textContent = `v${String(data.version).replace(/^v/, '')}`;
+            }
+            if (data.release_notes && releaseNotesEl) {
+                releaseNotesEl.textContent = String(data.release_notes);
+            }
+
+            const platforms = data.platforms || {};
+
+            // Update Windows Installer metadata safely
+            const winInfo = platforms.windows;
+            const winShaEl = document.getElementById('win-sha-value');
+            if (winInfo) {
+                const winInstallerUrl = winInfo.installer_url || `${serverBase}/api/download?platform=windows`;
+                const winPrimary = document.getElementById('win-primary-download') as HTMLAnchorElement | null;
+                const groupWin = document.getElementById('group-link-win') as HTMLAnchorElement | null;
+
+                if (winPrimary && isTrustedDownloadUrl(winInstallerUrl, serverBase)) {
+                    winPrimary.href = winInstallerUrl;
+                }
+                if (groupWin && isTrustedDownloadUrl(winInstallerUrl, serverBase)) {
+                    groupWin.href = winInstallerUrl;
+                }
+
+                const instSizeStr = formatMB(winInfo.installer_size_bytes) || '6.7 MB';
+                const appSizeStr = formatMB(winInfo.size_bytes);
+                const verStr = winInfo.version || data.version || '1.1.4';
+                const instName = winInfo.installer_filename || 'GymTrack-Setup.exe';
+                const winMeta = document.getElementById('win-file-meta');
+                const winSub = document.getElementById('win-btn-sub');
+                const groupMetaWin = document.getElementById('group-meta-win');
+
+                if (winMeta) winMeta.textContent = `${instName} (${instSizeStr}) • Instala GymTrack v${verStr}`;
+                if (winSub) {
+                    winSub.textContent = appSizeStr
+                        ? `Instalador Ligero (${instSizeStr}) • Descarga GymTrack v${verStr} (${appSizeStr})`
+                        : `Instalador Ligero (${instSizeStr}) • Descarga e instala GymTrack v${verStr} automáticamente`;
+                }
+                if (groupMetaWin) groupMetaWin.textContent = `Instalador v${verStr} • ${instSizeStr} • Windows 10/11`;
+
+                const winHash = winInfo.installer_sha256 || winInfo.sha256;
+                if (winShaEl) {
+                    winShaEl.textContent = winHash
+                        ? String(winHash)
+                        : 'Verificado en el servidor (cabecera X-Checksum-SHA256 activa)';
+                }
+            } else if (winShaEl) {
+                winShaEl.textContent = data.sha256
+                    ? String(data.sha256)
+                    : 'Verificado por el servidor en la descarga (X-Checksum-SHA256)';
+            }
+
+            // Update Linux Installer metadata safely
+            const linuxInfo = platforms.linux;
+            const linuxShaEl = document.getElementById('linux-sha-value');
+            if (linuxInfo) {
+                const linuxInstallerUrl = linuxInfo.installer_url || `${serverBase}/api/download?platform=linux`;
+                const linuxPrimary = document.getElementById('linux-primary-download') as HTMLAnchorElement | null;
+                const groupLinux = document.getElementById('group-link-linux-inst') as HTMLAnchorElement | null;
+
+                if (linuxPrimary && isTrustedDownloadUrl(linuxInstallerUrl, serverBase)) {
+                    linuxPrimary.href = linuxInstallerUrl;
+                }
+                if (groupLinux && isTrustedDownloadUrl(linuxInstallerUrl, serverBase)) {
+                    groupLinux.href = linuxInstallerUrl;
+                }
+
+                const instSizeStr = formatMB(linuxInfo.installer_size_bytes) || '6.5 MB';
+                const appSizeStr = formatMB(linuxInfo.size_bytes);
+                const verStr = linuxInfo.version || data.version || '1.1.4';
+                const instName = linuxInfo.installer_filename || 'gymtrack-installer';
+                const linuxMeta = document.getElementById('linux-file-meta');
+                const linuxSub = document.getElementById('linux-btn-sub');
+                const groupMetaLinux = document.getElementById('group-meta-linux');
+
+                if (linuxMeta) linuxMeta.textContent = `${instName} (${instSizeStr}) • Instala GymTrack v${verStr}`;
+                if (linuxSub) {
+                    linuxSub.textContent = appSizeStr
+                        ? `Asistente GUI (${instSizeStr}) • Descarga GymTrack v${verStr} (${appSizeStr})`
+                        : `Asistente GUI (${instSizeStr}) • Descarga e instala GymTrack v${verStr} automáticamente`;
+                }
+                if (groupMetaLinux) groupMetaLinux.textContent = `Instalador GUI v${verStr} • ${instSizeStr} • x86_64`;
+
+                const linuxHash = linuxInfo.installer_sha256 || linuxInfo.sha256;
+                if (linuxShaEl) {
+                    linuxShaEl.textContent = linuxHash
+                        ? String(linuxHash)
+                        : 'Verificado en el servidor (cabecera X-Checksum-SHA256 activa)';
+                }
+            } else if (linuxShaEl) {
+                linuxShaEl.textContent = 'Verificado por el servidor en la descarga (X-Checksum-SHA256)';
+            }
+        } catch {
+            // Graceful fallback when offline or blocked by CORS
+            const winShaEl = document.getElementById('win-sha-value');
+            const linuxShaEl = document.getElementById('linux-sha-value');
+            if (winShaEl) winShaEl.textContent = 'Verificación automática vía cabecera HTTPS X-Checksum-SHA256';
+            if (linuxShaEl) linuxShaEl.textContent = 'Verificación automática vía cabecera HTTPS X-Checksum-SHA256';
+        }
+    }
+
+    // Copy SHA-256 button handlers
+    document.querySelectorAll<HTMLButtonElement>('.copy-sha-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const targetId = btn.getAttribute('data-copy-target');
+            const codeEl = targetId ? document.getElementById(targetId) : null;
+            const text = codeEl?.textContent?.trim();
+            if (!text) return;
+            try {
+                await navigator.clipboard.writeText(text);
+                const prev = btn.textContent;
+                btn.textContent = '¡Copiado!';
+                setTimeout(() => {
+                    btn.textContent = prev;
+                }, 1800);
+            } catch {
+                // Clipboard unavailable
+            }
+        });
+    });
+
+    syncWithReleaseServer();
+</script>
 
 <style>
     .py-20 {
@@ -211,158 +564,402 @@
         margin: 0 auto;
     }
 
-    .download-header {
-        animation: fadeInUp 0.8s ease-out;
-    }
-
-    .badge {
-        display: inline-block;
-        padding: 0.5rem 1.5rem;
-        background: rgba(249, 115, 22, .1);
-        color: var(--accent);
-        border: 1px solid rgba(249, 115, 22, .3);
-        border-radius: 3px;
+    .font-mono {
         font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
     }
 
-    .mb-4 {
-        margin-bottom: 1rem;
+    .text-xs {
+        font-size: 0.78rem;
     }
 
-    .mb-6 {
-        margin-bottom: 1.5rem;
+    .text-sm {
+        font-size: 0.9rem;
     }
 
-    .mb-8 {
-        margin-bottom: 2rem;
+    .text-accent {
+        color: var(--accent);
     }
 
-    .mb-12 {
-        margin-bottom: 3rem;
+    .mt-4 {
+        margin-top: 1rem;
     }
 
-    .mt-12 {
-        margin-top: 3rem;
+    .mt-6 {
+        margin-top: 1.5rem;
     }
 
-    .text-5xl {
-        font-size: 3rem;
-        line-height: 1.2;
+    .mb-1 {
+        margin-bottom: 0.25rem;
     }
 
-    .text-3xl {
-        font-size: 2rem;
-    }
-
-    .text-2xl {
-        font-size: 1.5rem;
-    }
-
-    .text-xl {
-        font-size: 1.25rem;
-    }
-
-    .max-w-2xl {
-        max-width: 42rem;
-    }
-
-    .mx-auto {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .download-content {
-        display: grid;
-        gap: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .download-card {
-        padding: 3rem;
-        text-align: center;
-        border: 1px solid var(--border);
-        transition: all 0.3s ease;
-        animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
-
-    .download-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-icon {
-        display: inline-flex;
+    /* Server Status Bar */
+    .server-status-bar {
+        display: flex;
         align-items: center;
-        justify-content: center;
-        width: 120px;
-        height: 120px;
-        background: linear-gradient(135deg, var(--accent), var(--electric));
-        border-radius: 50%;
-        margin-bottom: 2rem;
-        animation: float 3s ease-in-out infinite;
+        justify-content: space-between;
+        padding: 0.9rem 1.5rem;
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        background: rgba(17, 24, 39, 0.85);
+        gap: 1rem;
+        flex-wrap: wrap;
     }
 
-    .card-icon svg {
-        color: white;
-    }
-
-    .features-list {
-        text-align: left;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    .feature-item {
+    .status-left,
+    .status-right {
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        padding: 0.75rem 0;
+        flex-wrap: wrap;
+    }
+
+    .status-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 10px var(--green);
+        display: inline-block;
+    }
+
+    .version-pill {
+        background: rgba(249, 115, 22, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(249, 115, 22, 0.35);
+        padding: 0.2rem 0.65rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .security-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: rgba(52, 211, 153, 0.12);
+        color: var(--green);
+        border: 1px solid rgba(52, 211, 153, 0.3);
+        padding: 0.2rem 0.65rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    /* Main Download Hub */
+    .download-hub {
+        padding: 2.5rem;
+        border: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+    }
+
+    .os-tabs-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
         border-bottom: 1px solid var(--border);
-        transition: all 0.3s ease;
+        flex-wrap: wrap;
     }
 
-    .feature-item:last-child {
-        border-bottom: none;
+    .os-tabs-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
     }
 
-    .feature-item:hover {
-        padding-left: 0.5rem;
+    .os-detected-badge {
+        font-size: 0.85rem;
+        color: var(--electric);
+        font-weight: 600;
+    }
+
+    .os-tablist {
+        display: flex;
+        gap: 0.75rem;
+        background: var(--deep);
+        padding: 0.4rem;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+    }
+
+    .os-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 7px;
+        border: none;
+        background: transparent;
+        color: var(--text);
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .os-tab:hover {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .os-tab.active {
+        background: var(--accent);
+        color: var(--ink);
+        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.35);
+    }
+
+    .os-tab:focus-visible,
+    .copy-sha-btn:focus-visible,
+    .grouped-link-item:focus-visible,
+    .btn-download-main:focus-visible,
+    .btn-download-secondary:focus-visible {
+        outline: 3px solid var(--electric);
+        outline-offset: 3px;
+    }
+
+    .hub-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: 2.5rem;
+        align-items: start;
+    }
+
+    .panel-badge-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .platform-tag {
+        background: rgba(56, 189, 248, 0.12);
+        color: var(--electric);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family: var(--font-mono);
+    }
+
+    .file-meta {
+        font-size: 0.8rem;
+        color: var(--text);
+        opacity: 0.85;
+    }
+
+    .download-actions-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+
+    .btn-download-main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.15rem 1.75rem;
+        border-radius: 10px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .btn-text-block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .btn-sub {
+        font-size: 0.78rem;
+        opacity: 0.85;
+        font-weight: 500;
+        margin-top: 0.2rem;
+    }
+
+    .btn-download-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        padding: 0.85rem 1.25rem;
+        border-radius: 8px;
+        width: 100%;
+        font-size: 0.88rem;
+    }
+
+    .checksum-box {
+        background: var(--deep);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.9rem 1rem;
+    }
+
+    .checksum-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.45rem;
+        color: var(--green);
+    }
+
+    .copy-sha-btn {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border);
+        color: var(--light);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.72rem;
+        font-family: var(--font-mono);
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+    }
+
+    .copy-sha-btn:hover {
+        border-color: var(--accent);
         color: var(--accent);
     }
 
-    .check-icon {
-        color: var(--green);
-        flex-shrink: 0;
-    }
-
-    .btn-large {
-        padding: 1.25rem 3rem;
-        font-size: 1.125rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .btn-large:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+    .checksum-code {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text);
+        word-break: break-all;
+        line-height: 1.4;
     }
 
     .download-note {
-        margin-top: 1.5rem;
-        font-size: 0.875rem;
-        color: var(--muted);
+        margin-top: 1.25rem;
+        font-size: 0.85rem;
+        color: var(--text);
+        opacity: 0.8;
     }
 
+    /* Right Sidebar: Grouped Server Links */
+    .grouped-box,
+    .included-box {
+        background: rgba(17, 24, 39, 0.7);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.35rem;
+    }
+
+    .grouped-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: var(--white);
+    }
+
+    .grouped-download-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .grouped-link-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0.9rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--light);
+        transition: all 0.2s ease;
+    }
+
+    .grouped-link-item:hover {
+        border-color: var(--accent);
+        background: rgba(249, 115, 22, 0.08);
+        color: var(--white);
+        transform: translateX(3px);
+    }
+
+    .grouped-os-icon {
+        font-size: 1.35rem;
+        flex-shrink: 0;
+    }
+
+    .grouped-link-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .grouped-link-info strong {
+        font-size: 0.88rem;
+        color: var(--white);
+    }
+
+    .grouped-link-info small {
+        font-size: 0.74rem;
+        color: var(--text);
+        opacity: 0.75;
+    }
+
+    .grouped-dl-badge {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        background: rgba(52, 211, 153, 0.14);
+        color: var(--green);
+        border: 1px solid rgba(52, 211, 153, 0.3);
+        flex-shrink: 0;
+    }
+
+    .release-notes-mini {
+        padding-top: 0.85rem;
+        border-top: 1px solid var(--border);
+    }
+
+    .features-checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .features-checklist li {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+        color: var(--text);
+    }
+
+    .check-mark {
+        color: var(--green);
+        font-weight: 700;
+    }
+
+    /* Info Cards */
     .info-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 1.5rem;
         margin-top: 2rem;
     }
@@ -371,35 +968,29 @@
         padding: 2rem;
         text-align: center;
         border: 1px solid var(--border);
-        transition: all 0.3s ease;
-        animation: fadeInUp 0.8s ease-out 0.4s both;
-    }
-
-    .info-card:hover {
-        transform: translateY(-3px);
-        border-color: var(--accent);
     }
 
     .info-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+        font-size: 2.5rem;
+        margin-bottom: 0.85rem;
     }
 
-    .info-card h4 {
-        font-size: 1.25rem;
+    .info-card h3 {
+        font-size: 1.2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
     }
 
     .info-card p {
-        color: var(--muted);
-        font-size: 0.875rem;
+        color: var(--text);
+        opacity: 0.85;
+        font-size: 0.9rem;
     }
 
+    /* System Requirements */
     .system-requirements {
         padding: 2.5rem;
         border: 1px solid var(--border);
-        animation: fadeInUp 0.8s ease-out 0.6s both;
     }
 
     .system-requirements h3 {
@@ -409,13 +1000,13 @@
     .requirements-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
+        gap: 1.25rem;
     }
 
     .requirement {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
         padding: 1rem;
         background: var(--deep);
         border-radius: 0.5rem;
@@ -424,63 +1015,34 @@
 
     .requirement strong {
         color: var(--accent);
-        font-size: 0.875rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
 
     .requirement span {
         color: var(--text);
+        font-size: 0.92rem;
     }
 
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes float {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-
-    @keyframes pulse {
-        0%,
-        100% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.8;
+    @media (max-width: 960px) {
+        .hub-grid {
+            grid-template-columns: 1fr;
         }
     }
 
     @media (max-width: 768px) {
-        .text-5xl {
-            font-size: 2rem;
+        .download-hub {
+            padding: 1.5rem;
         }
 
-        .download-card {
-            padding: 2rem;
+        .os-tablist {
+            width: 100%;
         }
 
-        .card-icon {
-            width: 80px;
-            height: 80px;
-        }
-
-        .card-icon svg {
-            width: 40px;
-            height: 40px;
+        .os-tab {
+            flex: 1;
+            justify-content: center;
         }
 
         .requirements-grid {
@@ -488,3 +1050,4 @@
         }
     }
 </style>
+

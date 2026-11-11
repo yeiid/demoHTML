@@ -3,32 +3,43 @@ import UserDemo from "./UserDemo.astro";
 import FinanceDemo from "./FinanceDemo.astro";
 import SalesDemo from "./SalesDemo.astro";
 import ProductDemo from "./ProductDemo.astro";
+import ConfigDemo from "./ConfigDemo.astro";
 
 const tabs = [
-    { id: "users", label: "Usuarios", icon: "👤" },
+    { id: "users", label: "Usuarios y Asistencia", icon: "👤" },
     { id: "finance", label: "Finanzas", icon: "💰" },
-    { id: "sales", label: "Ventas/POS", icon: "🛒" },
+    { id: "sales", label: "Ventas / POS", icon: "🛒" },
     { id: "inventory", label: "Inventario", icon: "📦" },
+    { id: "config", label: "Sistema y Licencia", icon: "🔐" },
 ];
 ---
 
 <section id="demo" class="container py-12">
     <div class="text-center mb-10">
+        <span class="badge mb-4">Simulador Interactivo · v1.1.4</span>
         <h2 class="text-4xl font-bold mb-4">
             Explora la <span class="gradient-text">Experiencia GymTrack</span>
         </h2>
         <p class="text-muted max-w-2xl mx-auto">
-            Gestiona cada aspecto de tu gimnasio desde una interfaz única e
-            intuitiva.
+            Navega por los 5 módulos principales de la aplicación de escritorio: desde control de membresías y POS hasta licenciamiento criptográfico y actualizaciones OTA.
         </p>
     </div>
 
     <div class="demo-wrapper glass">
-        <div class="demo-sidebar">
+        <div class="demo-sidebar" role="tablist" aria-label="Módulos del sistema GymTrack">
             {
-                tabs.map((tab) => (
-                    <button class="tab-btn" data-tab={tab.id}>
-                        <span class="tab-icon">{tab.icon}</span>
+                tabs.map((tab, idx) => (
+                    <button
+                        type="button"
+                        role="tab"
+                        id={`demo-tab-${tab.id}`}
+                        aria-selected={idx === 0 ? "true" : "false"}
+                        aria-controls={tab.id}
+                        tabindex={idx === 0 ? "0" : "-1"}
+                        class={`tab-btn ${idx === 0 ? "active" : ""}`}
+                        data-tab={tab.id}
+                    >
+                        <span class="tab-icon" aria-hidden="true">{tab.icon}</span>
                         <span class="tab-label">{tab.label}</span>
                     </button>
                 ))
@@ -36,46 +47,65 @@ const tabs = [
         </div>
 
         <div class="demo-content">
-            <div id="users" class="tab-content active">
+            <div id="users" role="tabpanel" aria-labelledby="demo-tab-users" class="tab-content active">
                 <UserDemo />
             </div>
-            <div id="finance" class="tab-content">
+            <div id="finance" role="tabpanel" aria-labelledby="demo-tab-finance" class="tab-content" hidden>
                 <FinanceDemo />
             </div>
-            <div id="sales" class="tab-content">
+            <div id="sales" role="tabpanel" aria-labelledby="demo-tab-sales" class="tab-content" hidden>
                 <SalesDemo />
             </div>
-            <div id="inventory" class="tab-content">
+            <div id="inventory" role="tabpanel" aria-labelledby="demo-tab-inventory" class="tab-content" hidden>
                 <ProductDemo />
+            </div>
+            <div id="config" role="tabpanel" aria-labelledby="demo-tab-config" class="tab-content" hidden>
+                <ConfigDemo />
             </div>
         </div>
     </div>
 </section>
 
 <script>
-    const buttons = document.querySelectorAll(".tab-btn");
-    const contents = document.querySelectorAll(".tab-content");
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".demo-sidebar .tab-btn"));
+    const contents = Array.from(document.querySelectorAll<HTMLElement>(".demo-content .tab-content"));
 
-    buttons.forEach((btn) => {
+    function activateDemoTab(tabId: string, focusTab = false) {
+        buttons.forEach((b) => {
+            const isActive = b.getAttribute("data-tab") === tabId;
+            b.classList.toggle("active", isActive);
+            b.setAttribute("aria-selected", isActive ? "true" : "false");
+            b.setAttribute("tabindex", isActive ? "0" : "-1");
+            if (isActive && focusTab) {
+                b.focus();
+            }
+        });
+
+        contents.forEach((content) => {
+            const isActive = content.id === tabId;
+            content.classList.toggle("active", isActive);
+            content.hidden = !isActive;
+        });
+    }
+
+    buttons.forEach((btn, idx) => {
         btn.addEventListener("click", () => {
             const tabId = btn.getAttribute("data-tab");
+            if (tabId) activateDemoTab(tabId, false);
+        });
 
-            // Update buttons
-            buttons.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            // Update content with fade
-            contents.forEach((content) => {
-                content.classList.remove("active");
-                if (content.id === tabId) {
-                    content.classList.add("active");
-                }
-            });
+        btn.addEventListener("keydown", (e) => {
+            if (["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"].includes(e.key)) {
+                e.preventDefault();
+                const forward = e.key === "ArrowDown" || e.key === "ArrowRight";
+                const nextIdx = forward
+                    ? (idx + 1) % buttons.length
+                    : (idx - 1 + buttons.length) % buttons.length;
+                const nextId = buttons[nextIdx].getAttribute("data-tab");
+                if (nextId) activateDemoTab(nextId, true);
+            }
         });
     });
-
-    // Set first tab as active by default
-    buttons[0].classList.add("active");
 </script>
 
 <style>
@@ -87,40 +117,50 @@ const tabs = [
     }
 
     .demo-sidebar {
-        width: 200px;
+        width: 240px;
         background: rgba(255, 255, 255, 0.02);
         border-right: 1px solid var(--border);
         display: flex;
         flex-direction: column;
         padding: 1rem;
         gap: 0.5rem;
+        flex-shrink: 0;
     }
 
     .tab-btn {
         background: transparent;
         border: none;
-        color: var(--text-muted);
-        padding: 1rem;
+        color: var(--text);
+        opacity: 0.75;
+        padding: 0.95rem 1rem;
         text-align: left;
         border-radius: 0.75rem;
         cursor: pointer;
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        transition: all 0.3s ease;
+        transition: all 0.25s ease;
         font-family: inherit;
         font-weight: 600;
+        font-size: 0.92rem;
     }
 
     .tab-btn:hover {
         background: rgba(255, 255, 255, 0.05);
-        color: var(--text);
+        opacity: 1;
+        color: var(--white);
     }
 
     .tab-btn.active {
         background: var(--accent);
         color: var(--ink);
+        opacity: 1;
         box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .tab-btn:focus-visible {
+        outline: 3px solid var(--electric);
+        outline-offset: 2px;
     }
 
     .demo-content {
@@ -166,7 +206,9 @@ const tabs = [
             border-bottom: 1px solid var(--border);
         }
         .tab-label {
-            display: none;
+            font-size: 0.8rem;
+            white-space: nowrap;
         }
     }
 </style>
+
